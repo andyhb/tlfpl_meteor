@@ -10,6 +10,7 @@ import './team.html';
 import '../players/playerEntry.html';
 
 import '../../api/lineups.js';
+import { Lineups } from '../../api/lineups.js';
 
 const playersSelected = new ReactiveVar([]);
 let formation = {};
@@ -29,6 +30,27 @@ Template.team.onCreated(function bodyOnCreated() {
     4: 0
   };
   playersSelected.set([]);
+
+  let g = Globals.findOne();
+
+  if (g) {
+    let lineupForTeam = Lineups.findOne({
+      _id: (g.Gameweek + 1) + "/" + g.SeasonId + "/" + FlowRouter.getParam('teamId')
+    });
+    
+    if (lineupForTeam) {
+      let selectedPlayers = lineupForTeam.Players;
+
+      let positionsArray = lineupForTeam.Formation.split('-');
+      for (var i = 1; i < positionsArray.length + 1; i++) {
+        formation[i + 1] = positionsArray[i - 1];
+      }
+
+      if (selectedPlayers.length > 0) {
+        playersSelected.set(selectedPlayers);
+      }
+    }
+  }
 });
 
 Template.team.onDestroyed(function () {

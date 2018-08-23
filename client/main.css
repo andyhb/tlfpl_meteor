@@ -1,4 +1,12 @@
 /* CSS declarations go here */
+body {
+    padding-top: 70px;
+}
+
+#login-buttons {
+    padding-top: 15px;
+}
+
 #playersTable .GK.selected, #playersTable .position.GK {
     background: #fff2cc;
 }
