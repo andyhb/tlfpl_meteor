@@ -1,0 +1,37 @@
+<template name="gameweekEntry">
+    {{#if getWeek}}
+    <h2>Gameweek {{getWeek}}</h2>
+    <table class="table" id="gameweekEntryTable">
+        <tbody>
+            {{#each gameweek in data}}
+            <tr class="gameweek-team toggleGameweekPlayers" id="{{gameweek.Gameweek}}_{{gameweek.TeamId}}">
+                <td>{{gameweek.TeamName}}</td>
+                <td>{{formatDate gameweek.DateLineupSet}}</td>
+                <td>{{gameweek.TotalPoints}}</td>
+            </tr>
+            {{#if getSelectedPlayers gameweek.Players}}
+            <tr class="hidden gameweekPlayers {{gameweek.Gameweek}}_{{gameweek.TeamId}}">
+                <td colspan="3">
+                    <table class="table" id="playersTable">
+                        <thead>
+                            <tr>
+                                <th scope="col">Position</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Team</th>
+                                <th scope="col">Recent Points</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each player in getSelectedPlayers gameweek.Players}}
+                            {{> playerEntry data=player context="gameweek"}}
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            {{/if}}
+            {{/each}}
+        </tbody>
+    </table>
+    {{/if}}
+</template>

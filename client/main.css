@@ -1,0 +1,36 @@
+/* CSS declarations go here */
+#playersTable .GK.selected, #playersTable .position.GK {
+    background: #fff2cc;
+}
+
+#playersTable .DEF.selected, #playersTable .position.DEF {
+    background: #f4cccc;
+}
+
+#playersTable .MID.selected, #playersTable .position.MID {
+    background: #d9ead3;
+}
+
+#playersTable .FOR.selected, #playersTable .position.FOR {
+    background: #c9daf8;
+}
+
+#playersTable .toggle-selection:hover {
+    cursor: pointer;
+}
+
+.pointsBehind {
+    font-size: 80%;
+}
+
+#resultsTable .fa-angle-up {
+    color: green;
+}
+
+#resultsTable .fa-angle-down {
+    color: red;
+}
+
+#gameweekEntryTable .gameweekPlayers {
+    font-size: 80%;
+}

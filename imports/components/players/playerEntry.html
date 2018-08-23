@@ -1,0 +1,18 @@
+<template name="playerEntry">
+    <tr class="{{getClass}} {{GetPlayerProperty 'Position'}} {{isSelected}}">
+        <td class="col-sm-1 position {{GetPlayerProperty 'Position'}}">{{GetPlayerProperty "Position"}}</td>
+        <td>{{GetPlayerProperty "Name"}}</td>
+        <td>{{GetPlayerProperty "TeamName"}}</td>
+        <td>{{GetPlayerProperty "RecentPoints"}}</td>
+        {{#if isGameweek}}
+        <td>
+            {{GetPlayerProperty "TotalPoints"}}
+        </td>
+        {{/if}}
+        {{#if isTeamPage}}
+        <td>    
+            <b>{{GetPlayerProperty "PointsForTeam"}}</b>
+        </td>
+        {{/if}}
+    </tr>
+</template>

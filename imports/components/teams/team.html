@@ -1,0 +1,50 @@
+<template name="team">
+{{#with team}}
+    <h1>{{Name}} ({{ManagerName}})</h1>
+
+    <p>Season: {{SeasonName}}</p>
+
+    <h2>Current Squad</h2>
+    <table class="table table-hover" id="playersTable">
+        <thead>
+            <tr>
+                <th scope="col">Position</th>
+                <th scope="col">Name</th>
+                <th scope="col">Team</th>
+                <th scope="col">Recent Points</th>
+                <th scope="col">Total Points</th>
+                <th scope="col">Points For Team</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each player in getPlayers true}}
+            {{> playerEntry data=player selected=playersSelected}}
+            {{/each}}
+            <tr>
+                <td><b>{{getFormation}}</b></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>Total: </td>
+                <td><b>{{TotalPoints}}</b></td>
+            </tr>
+        </tbody>
+    </table>
+
+    {{#if validLineup}}
+    <div>
+        <button class="set-lineup" value="current">Set lineup for gameweek {{getGameweek}}</button>
+    </div>
+    <div>
+        <button class="set-lineup" value="next">Set lineup for gameweek {{getGameweek true}}</button>
+    </div>
+    {{/if}}
+
+    {{#if getPlayers false}}
+    <h2>Previous Players</h2>
+    {{#each getPlayers false}}
+    {{> playerEntry}}
+    {{/each}}
+    {{/if}}
+{{/with}}
+</template>

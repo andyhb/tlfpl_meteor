@@ -1,0 +1,9 @@
+<template name="user">
+  <li>
+    <button class="delete">&times;</button>
+    {{_id}} - {{getEmail}} - {{name}}
+    <form class="edit-user">
+      <input type="text" class="name" name="name" placeholder="Enter user's real name" />
+    </form>
+  </li>
+</template>
