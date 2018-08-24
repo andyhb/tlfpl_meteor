@@ -4,11 +4,17 @@
 
     <p>Season: {{SeasonName}}</p>
 
-    <h2>Current Squad</h2>
+    <div>
+        <h2>
+            Current Squad
+            <button class="btn set-lineup" value="next" {{canSetLineup}}>Set lineup for gameweek {{getGameweek true}}</button>
+        </h2>
+    </div>
+
     <table class="table table-hover" id="playersTable">
         <thead>
             <tr>
-                <th scope="col">Position</th>
+                <th scope="col">Pos</th>
                 <th scope="col">Name</th>
                 <th scope="col">Team</th>
                 <th scope="col">Recent Points</th>
@@ -21,7 +27,7 @@
             {{> playerEntry data=player selected=playersSelected}}
             {{/each}}
             <tr>
-                <td><b>{{getFormation}}</b></td>
+                <td class="text-nowrap"><b>{{getFormation}}</b></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -30,15 +36,6 @@
             </tr>
         </tbody>
     </table>
-
-    {{#if validLineup}}
-    <div>
-        <button class="set-lineup" value="current">Set lineup for gameweek {{getGameweek}}</button>
-    </div>
-    <div>
-        <button class="set-lineup" value="next">Set lineup for gameweek {{getGameweek true}}</button>
-    </div>
-    {{/if}}
 
     {{#if getPlayers false}}
     <h2>Previous Players</h2>

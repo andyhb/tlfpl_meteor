@@ -31,26 +31,28 @@ Template.team.onCreated(function bodyOnCreated() {
   };
   playersSelected.set([]);
 
-  let g = Globals.findOne();
+  this.autorun(() => {
+    let g = Globals.findOne();
 
-  if (g) {
-    let lineupForTeam = Lineups.findOne({
-      _id: (g.Gameweek + 1) + "/" + g.SeasonId + "/" + FlowRouter.getParam('teamId')
-    });
-    
-    if (lineupForTeam) {
-      let selectedPlayers = lineupForTeam.Players;
+    if (g) {
+      let lineupForTeam = Lineups.findOne({
+        _id: (g.Gameweek + 1) + "/" + g.SeasonId + "/" + FlowRouter.getParam('teamId')
+      });
+      
+      if (lineupForTeam) {
+        let selectedPlayers = lineupForTeam.Players;
 
-      let positionsArray = lineupForTeam.Formation.split('-');
-      for (var i = 1; i < positionsArray.length + 1; i++) {
-        formation[i + 1] = positionsArray[i - 1];
-      }
+        let positionsArray = lineupForTeam.Formation.split('-');
+        for (var i = 1; i < positionsArray.length + 1; i++) {
+          formation[i + 1] = positionsArray[i - 1];
+        }
 
-      if (selectedPlayers.length > 0) {
-        playersSelected.set(selectedPlayers);
+        if (selectedPlayers.length > 0) {
+          playersSelected.set(selectedPlayers);
+        }
       }
     }
-  }
+  });
 });
 
 Template.team.onDestroyed(function () {
@@ -146,8 +148,10 @@ Template.team.helpers({
   getFormation() {
     return getFormation();
   },
-  validLineup() {
-    return playersSelected.get().length === 11;
+  canSetLineup() {
+    if (playersSelected.get().length !== 11) {
+      return "disabled";
+    }
   },
   getGameweek(next) {
     let g = Globals.findOne();

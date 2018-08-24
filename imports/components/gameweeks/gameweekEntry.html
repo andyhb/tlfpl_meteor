@@ -1,7 +1,7 @@
 <template name="gameweekEntry">
     {{#if getWeek}}
     <h2>Gameweek {{getWeek}}</h2>
-    <table class="table" id="gameweekEntryTable">
+    <table class="table table-hover" id="gameweekEntryTable">
         <tbody>
             {{#each gameweek in data}}
             <tr class="gameweek-team toggleGameweekPlayers" id="{{gameweek.Gameweek}}_{{gameweek.TeamId}}">
@@ -15,7 +15,7 @@
                     <table class="table" id="playersTable">
                         <thead>
                             <tr>
-                                <th scope="col">Position</th>
+                                <th scope="col">Pos</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Team</th>
                                 <th scope="col">Recent Points</th>

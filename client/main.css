@@ -27,7 +27,7 @@ body {
     background: #c9daf8;
 }
 
-#playersTable .toggle-selection:hover {
+#playersTable .toggle-selection:hover, .toggleGameweekPlayers:hover {
     cursor: pointer;
 }
 
