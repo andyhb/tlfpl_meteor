@@ -1,7 +1,11 @@
 /* CSS declarations go here */
 body {
-    padding-top: 70px;
+    padding-top: 60px;
 }
+
+/* @media screen and (max-width: 768px) {
+    body { padding-top: 45px; }
+} */
 
 #login-buttons {
     padding-top: 15px;
