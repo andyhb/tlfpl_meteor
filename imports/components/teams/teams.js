@@ -15,13 +15,14 @@ import { Lineups } from '../../api/lineups.js';
 const playersSelected = new ReactiveVar([]);
 let formation = {};
 
-Template.home.onCreated(function bodyOnCreated() {
-  Meteor.subscribe('teams');
-});
+// Template.home.onCreated(function bodyOnCreated() {
+//   Meteor.subscribe('teams');
+// });
 
 Template.team.onCreated(function bodyOnCreated() {
   Meteor.subscribe('teams');
   Meteor.subscribe('lineups');
+  Meteor.subscribe('userData');
 
   formation = {
     1: 0,
@@ -73,11 +74,11 @@ const getTeams = function() {
   });
 };
 
-Template.home.helpers({
-  teams() {
-    return getTeams();
-  }
-});
+// Template.home.helpers({
+//   teams() {
+//     return getTeams();
+//   }
+// });
 
 Template.admin.helpers({
   teams() {
@@ -147,6 +148,25 @@ Template.team.helpers({
   },
   getFormation() {
     return getFormation();
+  },
+  inChargeOfTeamOrAdmin() {
+    const currentUser = Meteor.user();
+
+    console.log(currentUser);
+
+    if (!currentUser) {
+      return false;
+    }
+    
+    if (currentUser._id === this.ManagerId) {
+      return true;
+    }
+
+    if (currentUser.role && currentUser.role === 'admin') {
+      return true;
+    }
+
+    return false;
   },
   canSetLineup() {
     if (playersSelected.get().length !== 11) {

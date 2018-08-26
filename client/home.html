@@ -28,24 +28,24 @@
         {{/each}}
     </ul> -->
 
+    {{#if Template.subscriptionsReady}}
     <div class="row">
         <div id="Gameweeks">
-            <div class="col-sm-6">
-                {{> gameweekEntry data=(getGameweek)}}
-            </div>
-            <div class="col-sm-6">
-                {{> gameweekEntry data=(getGameweek "next")}}
+            <div class="col-sm-12">
+                {{> gameweekEntry data=getGameweek}}
             </div>
         </div>
     </div>
 
-    {{#if getData}}
-    <div class="row">    
-        {{> table data=getData}}
+    <div class="row">  
+        <div id="Table">
+            <div class="col-sm-12">
+                {{> table data=getData}}
+            </div>
+        </div>
     </div>
-    {{/if}}
     
-    {{#if players}}
+    <!-- {{#if players}}
     <div class="row">
         <header>
             <h1>Players</h1>
@@ -67,6 +67,16 @@
                 {{/each}}
             </tbody>
         </table>
+    </div>
+    {{/if}} -->
+
+    {{else}}
+    <div class="row">  
+        <div id="Spinner">
+            <div class="col-sm-12">
+                {{> spinner}}
+            </div>
+        </div>
     </div>
     {{/if}}
 </template>

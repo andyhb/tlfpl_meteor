@@ -9,9 +9,10 @@ import './playerEntry.html';
 const searchStringState = new ReactiveVar();
 const teamToAddPlayerTo = new ReactiveVar();
 
-Template.home.onCreated(function bodyOnCreated() {
-  Meteor.subscribe('players');
-});
+// Template.home.onCreated(function bodyOnCreated() {
+//   let self = this;
+//   self.subscribe('players');
+// });
 
 Template.admin.onCreated(function bodyOnCreated() {
   Meteor.subscribe('players');
@@ -22,16 +23,16 @@ Template.admin.onDestroyed(function() {
   teamToAddPlayerTo.set();
 });
 
-Template.home.helpers({
-  players() {
-    return Players.find({}, {
-      sort: {
-        TotalPoints: -1
-      },
-      limit: 10
-    });
-  }
-});
+// Template.home.helpers({
+//   players() {
+//     return Players.find({}, {
+//       sort: {
+//         TotalPoints: -1
+//       },
+//       limit: 10
+//     });
+//   }
+// });
 
 Template.admin.helpers({
   players() {

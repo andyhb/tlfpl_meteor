@@ -1,12 +1,31 @@
 <template name="gameweekEntry">
-    {{#if getWeek}}
-    <h2>Gameweek {{getWeek}}</h2>
+    {{#if getWeek data}}
+    <h3>
+        Lineups / Results <small class="text-muted">Gameweek {{getWeek data}}</small>
+
+        {{#if showPreviousGameweekButton}}
+            <button previousGameweek class="btn" name="previousGameweek"><span class="fas fa-angle-double-left"></span></button>
+        {{/if}}
+
+        {{#if showNextGameweekButton}}
+          <button nextGameweek class="btn" name="nextGameweek"><span class="fas fa-angle-double-right"></span></button>
+        {{/if}}
+    </h3>
     <table class="table table-hover" id="gameweekEntryTable">
+        <thead>
+            <tr>
+                <th scope="col">Team</th>
+                <th scope="col">Lineup Set</th>
+                <th scope="col">Formation</th>
+                <th scope="col">Points</th>
+            </tr>
+        </thead>
         <tbody>
             {{#each gameweek in data}}
             <tr class="gameweek-team toggleGameweekPlayers" id="{{gameweek.Gameweek}}_{{gameweek.TeamId}}">
                 <td>{{gameweek.TeamName}}</td>
                 <td>{{formatDate gameweek.DateLineupSet}}</td>
+                <td>{{gameweek.Formation}}</td>
                 <td>{{gameweek.TotalPoints}}</td>
             </tr>
             {{#if getSelectedPlayers gameweek.Players}}

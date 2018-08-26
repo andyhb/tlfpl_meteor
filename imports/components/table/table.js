@@ -10,7 +10,8 @@ const gameweekState = new ReactiveVar();
 let globalGameweek = 1;
 
 Template.home.onCreated(function bodyOnCreated() {
-  Meteor.subscribe('table');
+  let self = this;
+  self.subscribe('table');
 });
 
 Template.home.onDestroyed(function() {

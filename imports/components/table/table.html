@@ -1,23 +1,23 @@
 <template name="table">
+  {{#if data.Gameweek}}
   <header>
-      <h1>Table - Gameweek {{data.Gameweek}}</h1>
+      <h3>
+        Table <small class="text-muted">Gameweek {{data.Gameweek}}</small> 
+        
+        {{#if showPreviousGameweekButton}}
+          <button previousGameweek class="btn" name="previousGameweek"><span class="fas fa-angle-double-left"></span></button>
+        {{/if}}
+
+        {{#if showNextGameweekButton}}
+          <button nextGameweek class="btn" name="nextGameweek"><span class="fas fa-angle-double-right"></span></button>
+        {{/if}}
+      </h3>
+
+      
   </header>
 
   <table class="table" id="resultsTable">
     <thead>
-      <tr>
-        <td>
-          {{#if showPreviousGameweekButton}}
-            <button previousGameweek class="btn" name="previousGameweek"><span class="fas fa-angle-double-left"></span></button>
-          {{/if}}
-        </td>
-        <td colspan="3"></td>
-        <td>
-          {{#if showNextGameweekButton}}
-          <button nextGameweek class="btn" name="nextGameweek"><span class="fas fa-angle-double-right"></span></button>
-          {{/if}}
-        </td>
-      </tr>
       <tr>
         <th scope="col">Position</th>
         <th scope="col">Team</th>
@@ -32,4 +32,5 @@
       {{/each}}
     </tbody>
   </table>
+  {{/if}}
 </template>

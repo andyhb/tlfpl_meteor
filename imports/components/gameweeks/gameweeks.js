@@ -5,24 +5,27 @@ import { ReactiveVar } from 'meteor/reactive-var';
 import {Gameweeks} from '../../api/gameweek.js';
 import './gameweekEntry.html';
 
+const gameweekState = new ReactiveVar();
+let globalGameweek = 1;
+
 Template.home.onCreated(function bodyOnCreated() {
-    Meteor.subscribe('gameweek');
+    let self = this;
+    self.subscribe('gameweek');
+});
+
+Template.home.onDestroyed(function() {
+    gameweekState.set();
 });
 
 Template.home.helpers({
-    getGameweek(modifier) {
+    getGameweek() {
         var g = Globals.findOne();
 
         if (g) {
-            let gameweek = g.Gameweek;
-            
-            if (modifier === "next") {
-                gameweek++;
-            } else if (modifier === "previous") {
-                gameweek--;
-            }
+            var gameweek = gameweekState.get();
+            globalGameweek = g.Gameweek;
 
-            return Gameweeks.find({SeasonId: g.SeasonId, Gameweek: gameweek}, 
+            return Gameweeks.find({SeasonId: g.SeasonId, Gameweek: (gameweek ? gameweek : globalGameweek)}, 
                 {sort: {
                     TotalPoints: -1,
                     DateSet: 1
@@ -33,18 +36,31 @@ Template.home.helpers({
 });
 
 Template.gameweekEntry.helpers({
+    showNextGameweekButton() {
+        var gameweek = getWeek(this.data) + 1;
+
+        if (gameweek > globalGameweek + 1) {
+            return false;
+        }
+
+        return true;
+    },
+    showPreviousGameweekButton() {
+        var gameweek = getWeek(this.data) - 1;
+
+        if (gameweek < 1) {
+            return false;
+        }
+
+        return true;
+    },
     getSelectedPlayers(gameweekPlayers) {
         return gameweekPlayers.filter(function(player) {
             return player.Selected;
         });
     },
     getWeek() {
-        if (this.data) {
-            var firstGameweek = this.data.fetch()[0];
-            if (firstGameweek) {
-                return firstGameweek.Gameweek;
-            }
-        }
+        return getWeek(this.data);
     },
     formatDate(date) {
         if (date) {
@@ -75,9 +91,36 @@ Template.gameweekEntry.helpers({
     }
 });
 
+const getWeek = function(data) {
+    if (data) {
+        var firstGameweek = data.fetch()[0];
+        if (firstGameweek) {
+            return firstGameweek.Gameweek;
+        }
+    }
+};
+
 Template.gameweekEntry.events({
     'click .toggleGameweekPlayers'(event) {
         const teamId = event.currentTarget.id;        
         Template.instance().$("." + teamId).toggleClass("hidden");
+    },
+    'click [nextGameweek]'() {
+        var gameweek = getWeek(this.data) + 1;
+
+        if (gameweek > globalGameweek + 1) {
+            gameweek = globalGameweek;
+        }
+
+        gameweekState.set(gameweek);
+    },
+    'click [previousGameweek]'() {
+        var gameweek = getWeek(this.data) - 1;
+
+        if (gameweek < 1) {
+            gameweek = 1;
+        }
+
+        gameweekState.set(gameweek);
     }
 });

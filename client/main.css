@@ -3,9 +3,9 @@ body {
     padding-top: 60px;
 }
 
-/* @media screen and (max-width: 768px) {
-    body { padding-top: 45px; }
-} */
+#Spinner {
+    padding-top: 60px;
+}
 
 #login-buttons {
     padding-top: 15px;

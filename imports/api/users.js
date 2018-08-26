@@ -6,6 +6,16 @@ if (Meteor.isServer) {
     Meteor.publish('users', function usersPublication() {
         return Meteor.users.find();
     });
+
+    Meteor.publish('userData', function () {
+      if (this.userId) {
+        return Meteor.users.find({ _id: this.userId }, {
+          fields: { 'role': 1 }
+        });
+      } else {
+        this.ready();
+      }
+    });
 }
 
 Meteor.methods({
