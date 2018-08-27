@@ -8,11 +8,18 @@ import './playerEntry.html';
 
 const searchStringState = new ReactiveVar();
 const teamToAddPlayerTo = new ReactiveVar();
+const notPicked = new ReactiveVar();
 
 // Template.home.onCreated(function bodyOnCreated() {
 //   let self = this;
 //   self.subscribe('players');
 // });
+
+Template.players.onCreated(function bodyOnCreated() {
+  let self = this;
+  self.subscribe('players');
+  notPicked.set(false);
+});
 
 Template.admin.onCreated(function bodyOnCreated() {
   Meteor.subscribe('players');
@@ -21,18 +28,35 @@ Template.admin.onCreated(function bodyOnCreated() {
 Template.admin.onDestroyed(function() {
   searchStringState.set();
   teamToAddPlayerTo.set();
+  notPicked.set();
 });
 
-// Template.home.helpers({
-//   players() {
-//     return Players.find({}, {
-//       sort: {
-//         TotalPoints: -1
-//       },
-//       limit: 10
-//     });
-//   }
-// });
+Template.players.helpers({
+  playerSearch() {
+    return playerSearch();
+  }
+});
+
+const playerSearch = function() {
+  let selector = {};
+
+  if (notPicked.get()) {
+    selector["CurrentTeamId"] = null;
+  }
+
+  return Players.find(selector, {
+    sort: {
+      TotalPoints: -1
+    },
+    limit: 50
+  });
+};
+
+Template.players.events({
+  'change #notPicked'(event) {
+    notPicked.set(event.target.checked);
+  }
+});
 
 Template.admin.helpers({
   players() {

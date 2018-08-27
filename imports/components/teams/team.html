@@ -1,16 +1,16 @@
 <template name="team">
 {{#with team}}
-    <h1>{{Name}} ({{ManagerName}})</h1>
+    <h3>{{Name}} <small class="text-muted">{{ManagerName}}</small></h3>
 
     <p>Season: {{SeasonName}}</p>
 
     <div>
-        <h2>
+        <h4>
             Current Squad
             {{#if inChargeOfTeamOrAdmin}}
             <button class="btn set-lineup" value="next" {{canSetLineup}}>Set lineup for gameweek {{getGameweek true}}</button>
             {{/if}}
-        </h2>
+        </h4>
     </div>
 
     <table class="table table-hover" id="playersTable">
@@ -22,6 +22,7 @@
                 <th scope="col">Recent Points</th>
                 <th scope="col">Total Points</th>
                 <th scope="col">Points For Team</th>
+                <!-- <th scope="col"></th> -->
             </tr>
         </thead>
         <tbody>
@@ -35,6 +36,7 @@
                 <td></td>
                 <td>Total: </td>
                 <td><b>{{TotalPoints}}</b></td>
+                <!-- <td></td> -->
             </tr>
         </tbody>
     </table>

@@ -152,8 +152,6 @@ Template.team.helpers({
   inChargeOfTeamOrAdmin() {
     const currentUser = Meteor.user();
 
-    console.log(currentUser);
-
     if (!currentUser) {
       return false;
     }
