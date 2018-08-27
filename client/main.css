@@ -46,3 +46,12 @@ body {
 #gameweekEntryTable .gameweekPlayers {
     font-size: 80%;
 }
+
+form#playerSearch {
+    margin-bottom: 60px;
+}
+
+.form-control {
+    width:auto;
+    display:inline-block;
+}

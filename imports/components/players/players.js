@@ -9,16 +9,13 @@ import './playerEntry.html';
 const searchStringState = new ReactiveVar();
 const teamToAddPlayerTo = new ReactiveVar();
 const notPicked = new ReactiveVar();
-
-// Template.home.onCreated(function bodyOnCreated() {
-//   let self = this;
-//   self.subscribe('players');
-// });
+const playerSearchPosition = new ReactiveVar();
 
 Template.players.onCreated(function bodyOnCreated() {
   let self = this;
   self.subscribe('players');
   notPicked.set(false);
+  playerSearchPosition.set(0);
 });
 
 Template.admin.onCreated(function bodyOnCreated() {
@@ -28,7 +25,6 @@ Template.admin.onCreated(function bodyOnCreated() {
 Template.admin.onDestroyed(function() {
   searchStringState.set();
   teamToAddPlayerTo.set();
-  notPicked.set();
 });
 
 Template.players.helpers({
@@ -44,6 +40,15 @@ const playerSearch = function() {
     selector["CurrentTeamId"] = null;
   }
 
+  let position = playerSearchPosition.get();
+  if (position) {
+    position = parseInt(position);
+
+    if (position !== 0) {
+      selector["Position"] = position;
+    }
+  }
+
   return Players.find(selector, {
     sort: {
       TotalPoints: -1
@@ -55,6 +60,9 @@ const playerSearch = function() {
 Template.players.events({
   'change #notPicked'(event) {
     notPicked.set(event.target.checked);
+  },
+  'change #position'(event) {
+    playerSearchPosition.set(event.target.value);
   }
 });
 

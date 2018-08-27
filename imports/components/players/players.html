@@ -7,14 +7,25 @@
           <h3>Players</h3>
         </header>
 
-        <div class="form-row">
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="notPicked">
-            <label class="form-check-label" for="notPicked">
-              Show only available players
-            </label>
+        <form id="playerSearch">
+          <div class="form-row">
+            <div class="col-sm-6">
+              <label class="form-check-label" for="notPicked">Show only available</label>
+              <input class="form-check-input" type="checkbox" value="" id="notPicked">
+            </div>
+
+            <div class="col-sm-6">
+              <label for="position">Position</label>
+              <select class="form-control" id="position">
+                <option value="0">All</option>
+                <option value="1">GK</option>
+                <option value="2">DEF</option>
+                <option value="3">MID</option>
+                <option value="4">FOR</option>
+              </select>
+            </div>
           </div>
-        </div>
+        </form>
 
         <table class="table" id="playersTable">
           <thead>

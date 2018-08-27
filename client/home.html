@@ -1,33 +1,4 @@
 <template name="home">
-    <!-- <header>
-        <h1>Todo List ({{incompleteCount}})</h1>
-    
-        <label class="right">
-        <input type="checkbox" class="hide-completed"/>
-        Hide Completed Tasks
-        </label>
-    
-        <form class="new-task">
-        <input type="text" name="text" placeholder="Type to add new task"/>
-        </form>
-    </header>
-
-    <ul>
-        {{#each tasks}}
-        {{> task}}
-        {{/each}}
-    </ul> -->
-
-    <!-- <header>
-        <h1>Teams</h1>
-    </header>
-
-    <ul>
-        {{#each teams}}
-        {{> teamEntry}}
-        {{/each}}
-    </ul> -->
-
     {{#if Template.subscriptionsReady}}
     <div class="row">
         <div id="Gameweeks">
@@ -44,31 +15,6 @@
             </div>
         </div>
     </div>
-    
-    <!-- {{#if players}}
-    <div class="row">
-        <header>
-            <h1>Players</h1>
-        </header>
-
-        <table class="table" id="playersTable">
-            <thead>
-                <tr>
-                    <th scope="col">Pos</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Team</th>
-                    <th scope="col">Recent Points</th>
-                    <th scope="col">Total Points</th>
-                </tr>
-            </thead>
-            <tbody>
-                {{#each player in players}}
-                {{> playerEntry data=player}}
-                {{/each}}
-            </tbody>
-        </table>
-    </div>
-    {{/if}} -->
 
     {{else}}
     <div class="row">  

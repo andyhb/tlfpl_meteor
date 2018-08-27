@@ -15,10 +15,6 @@ import { Lineups } from '../../api/lineups.js';
 const playersSelected = new ReactiveVar([]);
 let formation = {};
 
-// Template.home.onCreated(function bodyOnCreated() {
-//   Meteor.subscribe('teams');
-// });
-
 Template.team.onCreated(function bodyOnCreated() {
   Meteor.subscribe('teams');
   Meteor.subscribe('lineups');
@@ -73,12 +69,6 @@ const getTeams = function() {
     }
   });
 };
-
-// Template.home.helpers({
-//   teams() {
-//     return getTeams();
-//   }
-// });
 
 Template.admin.helpers({
   teams() {
