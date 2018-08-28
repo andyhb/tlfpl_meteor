@@ -192,7 +192,7 @@ const isTeamPage = function() {
 };
 
 const getInfoIconType = function(chance) {
-    if (chance < 0) {
+    if (chance < 0 || chance === 100) {
       return "info-circle";
     }
 
