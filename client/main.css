@@ -47,6 +47,19 @@ body {
     font-size: 80%;
 }
 
+.playerInfo .fa-exclamation {
+    color: orange;
+}
+
+.playerInfo .fa-exclamation-triangle {
+    color: red;
+}
+
+.playerInfo:hover {
+    text-decoration: none;
+    cursor: pointer;
+}
+
 form#playerSearch {
     margin-bottom: 60px;
 }

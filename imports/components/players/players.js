@@ -178,6 +178,12 @@ Template.playerEntry.helpers({
   },
   isGameweek() {
     return this.context !== "gameweek";
+  },
+  showPlayerInfo() {
+    return (FlowRouter.current().path === "/players" || isTeamPage());
+  },
+  getInfoIconType(chance) {
+    return getInfoIconType(chance);
   }
 });
 
@@ -185,9 +191,24 @@ const isTeamPage = function() {
   return FlowRouter.getParam('teamId');
 };
 
+const getInfoIconType = function(chance) {
+    if (chance < 0) {
+      return "info-circle";
+    }
+
+    if (!chance || chance === 0) {
+      return "exclamation-triangle";
+    }
+
+    return "exclamation";
+};
+
 Template.playerEntry.events({
   'click .add-player-to-team' () {
     Meteor.call('teams.addPlayer', this.data.teamId, this.data._id);
+  },
+  'click .playerInfo' () {
+    event.stopPropagation();
   }
 });
 
