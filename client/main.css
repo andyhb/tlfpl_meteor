@@ -60,6 +60,10 @@ body {
     cursor: pointer;
 }
 
+.playerInfoStatus {
+    margin-right: 15px;
+}
+
 form#playerSearch {
     margin-bottom: 60px;
 }

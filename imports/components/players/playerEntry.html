@@ -16,7 +16,7 @@
         {{/if}}
         {{#if showPlayerInfo}}
         <td style="text-align: center">    
-            <a class="playerInfo">
+            <a class="playerInfo" href="/player/{{GetPlayerProperty '_id'}}">
                 <span class="fas fa-{{getInfoIconType (GetPlayerProperty 'ChanceOfPlayingPercentage')}}"></span>
             </a>
         </td>
