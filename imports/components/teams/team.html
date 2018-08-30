@@ -13,6 +13,10 @@
                 lineup for gameweek {{getGameweek true}}
             </button>
             {{/if}}
+
+            {{#if isAdmin}}
+                <a href="/transfer/{{_id}}" class="btn btn-primary">Transfers</a>
+            {{/if}}
         </h4>
     </div>
 

@@ -8,6 +8,7 @@ import '../imports/components/users/users.js';
 import '../imports/components/players/players.js';
 import '../imports/components/notifications/notification.js';
 import '../imports/components/playerInfo/playerInfo.js';
+import '../imports/components/transfer/transfer.js';
 
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
@@ -35,7 +36,7 @@ Template.navigation.helpers({
 // Meteor.connection._stream.on('message', message => {
 //     const data = JSON.parse(message);
 
-//     if (data.collection === 'players' && data.id === '88/EXjuGdW2FpD3b5hWj') {
+//     if (data.collection === 'teams') {
 //         console.log(data);
 //     }
 // });

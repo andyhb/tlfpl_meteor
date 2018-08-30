@@ -1,0 +1,72 @@
+<template name="transfer">
+    {{#with transfer}}
+    <div id="transfer">
+        <div class="row">
+            <div class="col-sm-12">
+                <h3>Transfers <small class="text-muted">{{Name}}</small></h3>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <h4>Out {{getPlayersOutCount}}</h4>
+
+                <div class="list-group list-group-flush">
+                    {{#each playerOut in getPlayersOut}}
+                    <button class="list-group-item list-group-item-action list-group-item-danger removePlayerOut" value="{{playerOut.Player._id}}">
+                        {{playerOut.Player.WebName}} 
+                        <span class="fa fa-sign-out-alt"></span>
+                    </button>
+                    {{/each}}
+                </div>
+
+                <div class="list-group list-group-flush">
+                    <button class="list-group-item list-group-item-action active selectPlayerButton selectPlayerOutButton">
+                        Add player out 
+                        <span class="fa fa-sign-out-alt"></span>
+                    </button>
+
+                    {{#each player in getCurrentPlayers}}
+                    <button class="list-group-item list-group-item-action addPlayerOut" value="{{player.Player._id}}">
+                        {{player.Player.WebName}}
+                    </button>
+                    {{/each}}
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <h4>In {{getPlayersInCount}}</h4>
+
+                <div class="list-group list-group-flush">
+                    {{#each playerIn in getPlayersIn}}
+                    <button class="list-group-item list-group-item-action list-group-item-success removePlayerIn" value="{{playerIn.Player._id}}">
+                        {{playerIn.Player.WebName}} 
+                        <span class="fa fa-sign-in-alt"></span>
+                    </button>
+                    {{/each}}
+                </div>
+
+                <div class="list-group list-group-flush">
+                    <button class="list-group-item list-group-item-action active selectPlayerButton selectPlayerInButton">
+                        Add player in 
+                        <span class="fa fa-sign-in-alt"></span>
+                    </button>
+                </div>
+
+                <div class="form">
+                    
+                </div>
+            </div>
+        </div>
+
+        {{#if anyAction}}
+        <div class="row">
+            <div class="col-sm-12">
+                <button class="btn btn-primary confirmTransfer">Confirm</button>
+                <button class="btn btn-secondary resetTransfer">Reset</button>
+            </div>
+        </div>
+        {{/if}}
+    </div>
+    {{/with}}
+</template>

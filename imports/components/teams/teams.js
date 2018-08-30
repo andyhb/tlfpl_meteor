@@ -17,7 +17,7 @@ const lineupSet = new ReactiveVar();
 let formation = {};
 
 Template.team.onCreated(function bodyOnCreated() {
-  Meteor.subscribe('teams');
+  Meteor.subscribe('teamInfo', FlowRouter.getParam('teamId'));
   Meteor.subscribe('lineups');
   Meteor.subscribe('userData');
 
@@ -154,11 +154,16 @@ Template.team.helpers({
       return true;
     }
 
-    if (currentUser.role && currentUser.role === 'admin') {
+    if (isAdmin(currentUser)) {
       return true;
     }
 
     return false;
+  },
+  isAdmin() {
+    const currentUser = Meteor.user();
+
+    return isAdmin(currentUser);
   },
   canSetLineup() {
     if (playersSelected.get().length !== 11) {
@@ -183,6 +188,10 @@ Template.team.helpers({
     return "btn-success";
   }
 });
+
+const isAdmin = function(currentUser) {
+  return currentUser.role && currentUser.role === 'admin';
+}
 
 Template.team.events({
   'click .toggle-selection'() {

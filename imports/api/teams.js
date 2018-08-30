@@ -8,6 +8,10 @@ if (Meteor.isServer) {
     Meteor.publish('teams', function teamsPublication() {
         return Teams.find();
     });
+
+    Meteor.publish('teamInfo', function teamsPublication(teamId) {
+        return Teams.find({_id: teamId}, {limit: 1});
+    });
 }
 
 Meteor.methods({
