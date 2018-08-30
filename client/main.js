@@ -7,6 +7,7 @@ import '../imports/components/table/table.js';
 import '../imports/components/users/users.js';
 import '../imports/components/players/players.js';
 import '../imports/components/notifications/notification.js';
+import '../imports/components/playerInfo/playerInfo.js';
 
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';

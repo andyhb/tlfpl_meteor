@@ -1,0 +1,74 @@
+<template name="playerInfo">
+{{#with playerInfo}}
+    <div class="row">
+        <div class="col-sm-12">
+            <h3>{{Forename}} {{Surname}} 
+                {{#if showWebName}}
+                <small class="text-muted">{{WebName}}</small>
+                {{/if}}
+            </h3>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="alert alert-{{getAlertClass}}">
+                <span class="fas fa-{{getInfoIconType}} playerInfoStatus"></span> {{getNews}}
+            </div>
+
+            <div>
+                <p>Currently plays for <b>{{CurrentTeamName}}</b></p>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <h4>Fixtures</h4>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <h5>Gameweek {{getGameweek}}</h5>
+                    <ul class="list-group list-group-flush">
+                    {{#each fixture in CurrentFixtures}}
+                        <li class="list-group-item">{{{getFixture fixture}}}</li>
+                    {{/each}}
+                    </ul>
+                </div>
+
+                <div class="col-sm-6">
+                    <h5>Gameweek {{getGameweek true}}</h5>
+                    <ul class="list-group list-group-flush">
+                    {{#each fixture in NextFixtures}}
+                        <li class="list-group-item">{{{getFixture fixture}}}</li>
+                    {{/each}}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <h3>Stats</h3>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            Points:
+                        </div>
+                        <div class="col-sm-3">
+                            {{TotalPoints}}
+                        </div>
+                        <div class="col-sm-3">
+                            Minutes:
+                        </div>
+                        <div class="col-sm-3">
+                            {{Minutes}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{{/with}}
+</template>

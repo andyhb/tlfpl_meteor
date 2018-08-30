@@ -8,4 +8,8 @@ if (Meteor.isServer) {
     Meteor.publish('players', function playersPublication() {
         return Players.find();
     });
+
+    Meteor.publish('playerInfo', function playersPublication(playerId) {
+        return Players.find({_id: playerId}, {limit: 1});
+    });
 }
