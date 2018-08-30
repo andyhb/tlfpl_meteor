@@ -7,6 +7,7 @@ import '../imports/api/teams.js';
 import '../imports/api/users.js';
 import '../imports/api/lineups.js';
 import '../imports/api/gameweek.js';
+import '../imports/api/transfers.js';
 
 Meteor.startup(() => {
   // code to run on server at startup

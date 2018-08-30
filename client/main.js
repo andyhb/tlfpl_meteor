@@ -6,6 +6,7 @@ import '../imports/components/table/table.js';
 // import '../imports/components/todosList/todosList.js';
 import '../imports/components/users/users.js';
 import '../imports/components/players/players.js';
+import '../imports/components/notifications/notification.js';
 
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
@@ -29,3 +30,11 @@ Template.navigation.helpers({
         return false;
     }
 });
+
+// Meteor.connection._stream.on('message', message => {
+//     const data = JSON.parse(message);
+
+//     if (data.collection === 'players' && data.id === '88/EXjuGdW2FpD3b5hWj') {
+//         console.log(data);
+//     }
+// });

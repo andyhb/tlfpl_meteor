@@ -13,6 +13,7 @@ import '../../api/lineups.js';
 import { Lineups } from '../../api/lineups.js';
 
 const playersSelected = new ReactiveVar([]);
+const lineupSet = new ReactiveVar();
 let formation = {};
 
 Template.team.onCreated(function bodyOnCreated() {
@@ -27,6 +28,7 @@ Template.team.onCreated(function bodyOnCreated() {
     4: 0
   };
   playersSelected.set([]);
+  lineupSet.set(false);
 
   this.autorun(() => {
     let g = Globals.findOne();
@@ -46,6 +48,7 @@ Template.team.onCreated(function bodyOnCreated() {
 
         if (selectedPlayers.length > 0) {
           playersSelected.set(selectedPlayers);
+          lineupSet.set(true);
         }
       }
     }
@@ -167,6 +170,16 @@ Template.team.helpers({
     if (g) {
       return next ? g.Gameweek + 1 : g.Gameweek;
     }
+  },
+  lineupSet() {
+    return lineupSet.get();
+  },
+  getSetLineupButtonClass() {
+    if (playersSelected.get().length !== 11) {
+      return "btn-danger";
+    }
+
+    return "btn-success";
   }
 });
 

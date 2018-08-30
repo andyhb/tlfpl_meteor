@@ -1,0 +1,7 @@
+<template name="notification">
+    {{#if showNotification}}
+    <span class="alert {{getNotificationType}}" role="alert">
+        {{notificationMessage}}
+    </span>
+    {{/if}}
+</template>
