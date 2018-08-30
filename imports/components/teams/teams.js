@@ -42,6 +42,7 @@ Template.team.onCreated(function bodyOnCreated() {
         let selectedPlayers = lineupForTeam.Players;
 
         let positionsArray = lineupForTeam.Formation.split('-');
+        formation[1] = 1;
         for (var i = 1; i < positionsArray.length + 1; i++) {
           formation[i + 1] = positionsArray[i - 1];
         }
