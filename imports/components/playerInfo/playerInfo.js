@@ -21,7 +21,7 @@ Template.playerInfo.helpers({
     },
     getNews() {
         if (this.News === "") {
-            return "Player available";
+            return "Player available for selection";
         } else {
             return this.News;
         }

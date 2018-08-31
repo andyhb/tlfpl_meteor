@@ -16,9 +16,11 @@
                 <span class="fas fa-{{getInfoIconType}} playerInfoStatus"></span> {{getNews}}
             </div>
 
+            {{#if CurrentTeamName}}
             <div>
                 <p>Currently plays for <b>{{CurrentTeamName}}</b></p>
             </div>
+            {{/if}}
         </div>
 
         <div class="col-sm-6">

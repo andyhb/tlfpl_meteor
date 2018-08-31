@@ -14,7 +14,7 @@
                 <div class="list-group list-group-flush">
                     {{#each playerOut in getPlayersOut}}
                     <button class="list-group-item list-group-item-action list-group-item-danger removePlayerOut" value="{{playerOut.Player._id}}">
-                        {{playerOut.Player.WebName}} 
+                        {{playerOut.Player.WebName}} - {{playerOut.Player.TeamName}} 
                         <span class="fa fa-sign-out-alt"></span>
                     </button>
                     {{/each}}
@@ -28,7 +28,7 @@
 
                     {{#each player in getCurrentPlayers}}
                     <button class="list-group-item list-group-item-action addPlayerOut" value="{{player.Player._id}}">
-                        {{player.Player.WebName}}
+                        {{player.Player.WebName}} - {{player.Player.TeamName}} 
                     </button>
                     {{/each}}
                 </div>
@@ -40,7 +40,7 @@
                 <div class="list-group list-group-flush">
                     {{#each playerIn in getPlayersIn}}
                     <button class="list-group-item list-group-item-action list-group-item-success removePlayerIn" value="{{playerIn._id}}">
-                        {{playerIn.WebName}} 
+                        {{playerIn.WebName}} - {{playerIn.TeamName}} 
                         {{#if showTeamName playerIn}}
                         <small class="text-muted">{{playerIn.CurrentTeamName}}</small>
                         {{/if}}
@@ -68,7 +68,7 @@
 
                     {{#each playerSearchResult in getPlayerSearchResults}}
                     <button class="list-group-item list-group-item-action list-group-item addPlayerIn" value="{{playerSearchResult._id}}">
-                        {{playerSearchResult.WebName}} 
+                        {{playerSearchResult.WebName}} - {{playerSearchResult.TeamName}} 
                         {{#if showTeamName playerSearchResult}}
                         <small class="text-muted">{{playerSearchResult.CurrentTeamName}}</small>
                         {{/if}}
