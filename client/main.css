@@ -73,7 +73,7 @@ form#playerSearch {
     display:inline-block;
 }
 
-#transfer .selectPlayerButton span, #transfer .removePlayerOut span {
+#transfer .selectPlayerButton span, #transfer .removePlayerOut span, #transfer .removePlayerIn span {
     float: right;
     padding: 3px;
 }

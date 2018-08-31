@@ -39,8 +39,11 @@
 
                 <div class="list-group list-group-flush">
                     {{#each playerIn in getPlayersIn}}
-                    <button class="list-group-item list-group-item-action list-group-item-success removePlayerIn" value="{{playerIn.Player._id}}">
-                        {{playerIn.Player.WebName}} 
+                    <button class="list-group-item list-group-item-action list-group-item-success removePlayerIn" value="{{playerIn._id}}">
+                        {{playerIn.WebName}} 
+                        {{#if showTeamName playerIn}}
+                        <small class="text-muted">{{playerIn.CurrentTeamName}}</small>
+                        {{/if}}
                         <span class="fa fa-sign-in-alt"></span>
                     </button>
                     {{/each}}
@@ -53,14 +56,24 @@
                     </button>
 
                     {{#if isPlayersInInProgress}}
-                    <div class="form">
-                        <div class="form-group row">
-                            <div class="col-sm-12">
+                    <form class="list-group-item" id="playerSearchForTransfer">
+                        <div class="form-row">
+                            <div class="form-group">
                                 <label class="sr-only" for="playerName">Name</label>
                                 <input type="text" class="form-control" id="playerName" placeholder="Enter player name">
+                                <button type="submit" class="btn btn-primary">Search</button>
                             </div>
                         </div>
-                    </div>
+                    </form>
+
+                    {{#each playerSearchResult in getPlayerSearchResults}}
+                    <button class="list-group-item list-group-item-action list-group-item addPlayerIn" value="{{playerSearchResult._id}}">
+                        {{playerSearchResult.WebName}} 
+                        {{#if showTeamName playerSearchResult}}
+                        <small class="text-muted">{{playerSearchResult.CurrentTeamName}}</small>
+                        {{/if}}
+                    </button>
+                    {{/each}}
                     {{/if}}
                 </div>
             </div>

@@ -3,19 +3,24 @@ import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 
 import {Teams} from '../../api/teams.js';
+import {Players} from '../../api/players.js';
 import './transfer.html';
 
 const playersOut = new ReactiveVar([]);
 const playersOutInProgress = new ReactiveVar(false);
 const playersIn = new ReactiveVar([]);
 const playersInInProgress = new ReactiveVar(false);
+const searchStringState = new ReactiveVar();
+const searchResults = new ReactiveVar([]);
 
 Template.transfer.onCreated(function BodyOnCreated() {
     Meteor.subscribe('teamInfo', FlowRouter.getParam('teamId'));
+    Meteor.subscribe('players');
     playersOut.set([]);
     playersOutInProgress.set(false);
     playersIn.set([]);
     playersInInProgress.set(false);
+    searchResults.set([]);
 });
 
 Template.transfer.helpers({
@@ -37,9 +42,25 @@ Template.transfer.helpers({
         });
     },
     getPlayersIn() {
-        // return this.Players.filter(function(player) {
-        //     return playersIn.get().indexOf(player.Player._id) > -1;
-        // });
+        return playersIn.get();
+    },
+    getPlayerSearchResults() {
+        const search = searchStringState.get();
+    
+        if (search) {
+            const selector = {
+                "SearchName" : {$regex : search, $options : 'i'}
+            };
+
+            let results = Players.find(selector, {
+                sort: {
+                    TotalPoints: -1
+                }
+            });
+
+            searchResults.set(results.fetch());
+            return results;
+        }
     },
     getPlayersOutCount() {
         let poc = playersOut.get().length;
@@ -50,11 +71,13 @@ Template.transfer.helpers({
         return pic === 0 ? "" : pic;
     },
     isPlayersInInProgress() {
-        console.log(playersInInProgress.get());
         return playersInInProgress.get();
     },
     anyAction() {
         return playersOut.get().length > 0 || playersIn.get().length > 0;
+    },
+    showTeamName(player) {
+        return player.CurrentTeamName !== null;
     }
 });
 
@@ -72,15 +95,54 @@ Template.transfer.events({
         outs.push(event.target.value);
         playersOut.set(outs);
     },
+    'click .addPlayerIn'(event) {
+        let ins = playersIn.get();
+        let results = searchResults.get();
+
+        let player = results.filter(function(searchPlayer) {
+            return searchPlayer._id === event.target.value;
+        })[0];
+
+        if (ins.indexOf(player) < 0) {
+            ins.push(player);
+            playersIn.set(ins);
+        }
+    },
+    'submit #playerSearchForTransfer'() {
+        event.preventDefault();
+
+        const target = event.target;
+        const name = target.playerName.value;
+    
+        searchResults.set([]);
+        searchStringState.set(name);
+    },
     'click .removePlayerOut'(event) {
         let outs = playersOut.get();
         outs.splice(outs.indexOf(event.target.value), 1);
         playersOut.set(outs);
+    },
+    'click .removePlayerIn'(event) {
+        let ins = playersIn.get();
+        ins.splice(ins.indexOf(event.target.value), 1);
+        playersIn.set(ins);
     },
     'click .resetTransfer'() {
         playersOut.set([]);
         playersOutInProgress.set(false);
         playersIn.set([]);
         playersInInProgress.set(false);
+        searchResults.set([]);
+        searchStringState.set();
+    },
+    'click .confirmTransfer'() {
+        let transfer = {
+            PlayersIn: playersIn.get().map(function(pin) {
+                return pin._id;
+            }),
+            PlayersOut: playersOut.get()
+        }
+
+        console.log(transfer);
     }
 });
