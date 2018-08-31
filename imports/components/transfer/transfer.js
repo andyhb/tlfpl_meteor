@@ -49,8 +49,12 @@ Template.transfer.helpers({
         let pic = playersIn.get().length;
         return pic === 0 ? "" : pic;
     },
+    isPlayersInInProgress() {
+        console.log(playersInInProgress.get());
+        return playersInInProgress.get();
+    },
     anyAction() {
-        return playersOut.get().length > 0;
+        return playersOut.get().length > 0 || playersIn.get().length > 0;
     }
 });
 
