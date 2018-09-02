@@ -4,6 +4,7 @@ import { ReactiveVar } from 'meteor/reactive-var';
 
 import {Teams} from '../../api/teams.js';
 import {Players} from '../../api/players.js';
+import '../../api/transfers.js';
 import './transfer.html';
 
 const playersOut = new ReactiveVar([]);
@@ -13,14 +14,26 @@ const playersInInProgress = new ReactiveVar(false);
 const searchStringState = new ReactiveVar();
 const searchResults = new ReactiveVar([]);
 
+let teamInfoSub = null;
+
 Template.transfer.onCreated(function BodyOnCreated() {
-    Meteor.subscribe('teamInfo', FlowRouter.getParam('teamId'));
+    teamInfoSub = Meteor.subscribe('teamInfo', FlowRouter.getParam('teamId'));
     Meteor.subscribe('players');
     playersOut.set([]);
     playersOutInProgress.set(false);
     playersIn.set([]);
     playersInInProgress.set(false);
     searchResults.set([]);
+});
+
+Template.transfer.onDestroyed(function () {
+    teamInfoSub.stop();
+    playersOut.set([]);
+    playersOutInProgress.set(false);
+    playersIn.set([]);
+    playersInInProgress.set(false);
+    searchResults.set([]);
+    searchStringState.set();
 });
 
 Template.transfer.helpers({
@@ -136,13 +149,21 @@ Template.transfer.events({
         searchStringState.set();
     },
     'click .confirmTransfer'() {
-        let transfer = {
-            PlayersIn: playersIn.get().map(function(pin) {
-                return pin._id;
-            }),
-            PlayersOut: playersOut.get()
-        }
+        let g = Globals.findOne();
 
-        console.log(transfer);
+        if (g) {
+            let transfer = {
+                PlayersIn: playersIn.get().map(function(pin) {
+                    return pin._id;
+                }),
+                PlayersOut: playersOut.get(),
+                Processed: false,
+                Emergency: false,
+                TransferDate: new Date(),
+                Gameweek: g.Gameweek
+            }
+
+            Meteor.call('transfers.update', transfer, FlowRouter.getParam('teamId'));
+        }
     }
 });
