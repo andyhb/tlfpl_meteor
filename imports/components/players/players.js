@@ -162,7 +162,7 @@ Template.playerEntry.helpers({
       return "add-player-to-team";
     }
 
-    if (isTeamPage()) {
+    if (isTeamPage() && this.canSelectPlayers) {
       return "toggle-selection";
     }
   },

@@ -34,7 +34,7 @@
         </thead>
         <tbody>
             {{#each player in getPlayers true}}
-            {{> playerEntry data=player selected=playersSelected}}
+            {{> playerEntry data=player selected=playersSelected canSelectPlayers=true}}
             {{/each}}
             <tr>
                 <td class="text-nowrap"><b>{{getFormation}}</b></td>
@@ -66,7 +66,7 @@
             </thead>
             <tbody>
                 {{#each player in getPlayers false}}
-                {{> playerEntry data=player}}
+                {{> playerEntry data=player canSelectPlayers=false}}
                 {{/each}}
             </tbody>
         </table>
