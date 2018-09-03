@@ -18,6 +18,7 @@ let formation = {};
 
 Template.team.onCreated(function bodyOnCreated() {
   Meteor.subscribe('teamInfo', FlowRouter.getParam('teamId'));
+  Meteor.subscribe('teamInfo', FlowRouter.getParam('teamToCompareId'));
   Meteor.subscribe('lineups');
   Meteor.subscribe('userData');
 
@@ -114,6 +115,12 @@ Template.teamEntry.events({
 
 Template.team.helpers({
   team() {
+    if (this.compare) {
+      return Teams.findOne({
+        _id: FlowRouter.getParam('teamToCompareId')
+      });
+    }
+    
     return Teams.findOne({
       _id: FlowRouter.getParam('teamId')
     });
@@ -186,12 +193,19 @@ Template.team.helpers({
     }
 
     return "btn-success";
+  },
+  actionsAvailable() {
+    return !isComparison();
   }
 });
 
+const isComparison = function() {
+  return !!this.compare; 
+};
+
 const isAdmin = function(currentUser) {
   return currentUser.role && currentUser.role === 'admin';
-}
+};
 
 Template.team.events({
   'click .toggle-selection'() {

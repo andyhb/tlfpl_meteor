@@ -9,6 +9,7 @@ import '../imports/components/players/players.js';
 import '../imports/components/notifications/notification.js';
 import '../imports/components/playerInfo/playerInfo.js';
 import '../imports/components/transfer/transfer.js';
+import '../imports/components/compare/compareTeams.js';
 
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
