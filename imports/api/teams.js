@@ -12,6 +12,10 @@ if (Meteor.isServer) {
     Meteor.publish('teamInfo', function teamsPublication(teamId) {
         return Teams.find({_id: teamId}, {limit: 1});
     });
+
+    Meteor.publish('currentUserTeamId', function teamsPublication(seasonId, managerId) {
+        return Teams.find({SeasonId: seasonId, ManagerId: managerId}, {_id: 1, limit: 1});
+    });
 }
 
 Meteor.methods({

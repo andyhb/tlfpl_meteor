@@ -194,14 +194,16 @@ Template.team.helpers({
 
     return "btn-success";
   },
-  actionsAvailable() {
-    return !isComparison();
+  getCurrentUserTeamId() {
+    const currentUser = Meteor.user();
+    Meteor.subscribe('currentUserTeamId', this.SeasonId, currentUser._id);
+    const team = Teams.findOne({SeasonId: this.SeasonId, ManagerId: currentUser._id});
+
+    if (team) {
+      return team._id;
+    }
   }
 });
-
-const isComparison = function() {
-  return !!this.compare; 
-};
 
 const isAdmin = function(currentUser) {
   return currentUser.role && currentUser.role === 'admin';

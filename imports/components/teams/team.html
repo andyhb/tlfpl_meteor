@@ -4,7 +4,6 @@
 
     <p>Season: {{SeasonName}}</p>
 
-    {{#if actionsAvailable}}
     <div>
         <h4>
             Current Squad
@@ -18,9 +17,12 @@
             {{#if isAdmin}}
                 <a href="/transfer/{{_id}}" class="btn btn-primary">Transfers</a>
             {{/if}}
+
+            {{#if inChargeOfTeamOrAdmin}}
+            <a href="/team/compare/{{getCurrentUserTeamId}}/{{_id}}" class="btn btn-primary">Compare</a>
+            {{/if}}
         </h4>
     </div>
-    {{/if}}
 
     <table class="table table-hover" id="playersTable">
         <thead>
