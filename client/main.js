@@ -19,6 +19,7 @@ import {Lineups} from '../imports/api/lineups.js';
 import {Teams} from '../imports/api/teams.js';
 
 const currentUserTeam = new ReactiveVar();
+const lineupSet = new ReactiveVar(false);
 
 Template.navigation.onCreated(function bodyOnCreated() {
     Meteor.subscribe('userData');
@@ -29,8 +30,23 @@ Template.navigation.onCreated(function bodyOnCreated() {
 
         if (team) {
             currentUserTeam.set(team);
+
+            const g = Globals.findOne();
+            if (g) {
+                Meteor.subscribe('teamLineup', team._id);
+                lineupSet.set(Lineups.findOne({
+                    TeamId: team._id,
+                    Gameweek: g.Gameweek + 1,
+                    SeasonId: g.SeasonId
+                }));
+            }
         }
     });
+});
+
+Template.navigation.onDestroyed(function () {
+    currentUserTeam.set();
+    lineupSet.set(false);
 });
 
 Template.navigation.helpers({
@@ -48,15 +64,7 @@ Template.navigation.helpers({
         return false;
     },
     isLineup() {
-        const g = Globals.findOne();
-        if (currentUserTeam.get() && g) {
-            Meteor.subscribe('currentUserLineup', currentUserTeam.get()._id);
-            return Lineups.findOne({
-                TeamId: currentUserTeam._id,
-                Gameweek: g.Gameweek + 1,
-                SeasonId: g.SeasonId
-            });
-        }
+        return lineupSet.get();
     },
     getTeamId() {
         if (currentUserTeam.get()) {

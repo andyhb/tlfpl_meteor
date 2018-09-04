@@ -20,7 +20,6 @@ Template.team.onCreated(function bodyOnCreated() {
   Meteor.subscribe('teamInfo', FlowRouter.getParam('teamId'));
   Meteor.subscribe('teamInfo', FlowRouter.getParam('teamToCompareId'));
   Meteor.subscribe('currentUserTeamId');
-  Meteor.subscribe('lineups');
   Meteor.subscribe('userData');
 
   formation = {
@@ -36,6 +35,8 @@ Template.team.onCreated(function bodyOnCreated() {
     let g = Globals.findOne();
 
     if (g) {
+      Meteor.subscribe('teamLineup', FlowRouter.getParam('teamId'));
+
       let lineupForTeam = Lineups.findOne({
         _id: (g.Gameweek + 1) + "/" + g.SeasonId + "/" + FlowRouter.getParam('teamId')
       });

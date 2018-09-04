@@ -1,8 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { check } from 'meteor/check';
- 
-import {Teams} from '../api/teams.js';
 
 export const Lineups = new Mongo.Collection('lineups');
 
@@ -11,7 +9,7 @@ if (Meteor.isServer) {
         return Lineups.find();
     });
 
-    Meteor.publish('currentUserLineup', function lineupsPublication(teamId) {
+    Meteor.publish('teamLineup', function lineupsPublication(teamId) {
         let g = Globals.findOne();
         if (g) {
             return Lineups.find({TeamId: teamId, SeasonId: g.SeasonId, Gameweek: g.Gameweek + 1}, {limit: 1});
