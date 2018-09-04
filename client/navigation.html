@@ -12,10 +12,24 @@
 
             <div class="navbar-collapse collapse" id="main-nav">
                 <ul class="nav navbar-nav">
-                    <li><a href="/">home</a></li>
-                    <li><a href="/players">players</a></li>
+                    <li><a href="/players">Players</a></li>
+
+                    {{#if isLineup}}
+                    <li>
+                        <a href="/team/{{getTeamId}}" class="text-success">
+                            <span class="fas fa-check"></span> Lineup set
+                        </a>
+                    </li>
+                    {{else}}
+                    <li>
+                        <a href="/team/{{getTeamId}}" class="text-danger">
+                            <span class="fas fa-exclamation-triangle"></span> Set lineup
+                        </a>
+                    </li>
+                    {{/if}}
+
                     {{#if isAdmin}}
-                    <li><a href="/admin">admin</a></li>
+                    <li><a href="/admin">Admin</a></li>
                     {{/if}}
                 </ul>
 

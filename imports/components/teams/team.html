@@ -7,8 +7,8 @@
     <div>
         <h4>
             Current Squad
-            {{#if inChargeOfTeamOrAdmin}}
-            <button class="btn set-lineup {{getSetLineupButtonClass}}" value="next" {{canSetLineup}}>
+            {{#if canSetLineup}}
+            <button class="btn set-lineup {{getSetLineupButtonClass}}" value="next" {{isLineupDisabled}}>
                 {{#if lineupSet}} Update {{else}} Set {{/if}}
                 lineup for gameweek {{getGameweek true}}
             </button>
@@ -18,7 +18,7 @@
                 <a href="/transfer/{{_id}}" class="btn btn-primary">Transfers</a>
             {{/if}}
 
-            {{#if inChargeOfTeamOrAdmin}}
+            {{#if canCompare}}
             <a href="/team/compare/{{getCurrentUserTeamId}}/{{_id}}" class="btn btn-primary">Compare</a>
             {{/if}}
         </h4>

@@ -19,6 +19,7 @@ let formation = {};
 Template.team.onCreated(function bodyOnCreated() {
   Meteor.subscribe('teamInfo', FlowRouter.getParam('teamId'));
   Meteor.subscribe('teamInfo', FlowRouter.getParam('teamToCompareId'));
+  Meteor.subscribe('currentUserTeamId');
   Meteor.subscribe('lineups');
   Meteor.subscribe('userData');
 
@@ -150,21 +151,30 @@ Template.team.helpers({
   getFormation() {
     return getFormation();
   },
-  inChargeOfTeamOrAdmin() {
+  canSetLineup() {
+    // not if in comparison view
+    if (FlowRouter.current().path.indexOf("compare") > 0) {
+      return false;
+    }
+
     const currentUser = Meteor.user();
 
+    // not if they're not a user!
     if (!currentUser) {
       return false;
     }
     
+    // yes if they own the team
     if (currentUser._id === this.ManagerId) {
       return true;
     }
 
+    // yes if they are an admin
     if (isAdmin(currentUser)) {
       return true;
     }
 
+    // no under any other circumstance
     return false;
   },
   isAdmin() {
@@ -172,7 +182,7 @@ Template.team.helpers({
 
     return isAdmin(currentUser);
   },
-  canSetLineup() {
+  isLineupDisabled() {
     if (playersSelected.get().length !== 11) {
       return "disabled";
     }
@@ -196,12 +206,32 @@ Template.team.helpers({
   },
   getCurrentUserTeamId() {
     const currentUser = Meteor.user();
-    Meteor.subscribe('currentUserTeamId', this.SeasonId, currentUser._id);
     const team = Teams.findOne({SeasonId: this.SeasonId, ManagerId: currentUser._id});
 
     if (team) {
       return team._id;
     }
+  },
+  canCompare() {
+    // not if in comparison view
+    if (FlowRouter.current().path.indexOf("compare") > 0) {
+      return false;
+    }
+
+    const currentUser = Meteor.user();
+
+    // not if they're not a user!
+    if (!currentUser) {
+      return false;
+    }
+    
+    // not if they own the team
+    if (currentUser._id === this.ManagerId) {
+      return false;
+    }
+
+    // otherwise true
+    return true;
   }
 });
 
