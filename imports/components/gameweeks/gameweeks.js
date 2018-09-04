@@ -55,6 +55,7 @@ Template.gameweekEntry.helpers({
         return true;
     },
     getSelectedPlayers(gameweekPlayers) {
+        gameweekPlayers.sort(sortPlayers);
         return gameweekPlayers.filter(function(player) {
             return player.Selected;
         });
@@ -90,6 +91,24 @@ Template.gameweekEntry.helpers({
         }
     }
 });
+
+const sortPlayers = function(a, b) {
+    let aPosition = a.Player.Position;
+    let bPosition = b.Player.Position;
+  
+    let aRecentPoints = a.Player.RecentPoints;
+    let bRecentPoints = b.Player.RecentPoints;
+
+    let aTotalPoints = a.Player.TotalPoints;
+    let bTotalPoints = b.Player.TotalPoints;
+  
+    if (aPosition < bPosition) return -1;
+    if (aPosition > bPosition) return 1;
+    if (aRecentPoints > bRecentPoints) return -1;
+    if (aRecentPoints < bRecentPoints) return 1;
+    if (aTotalPoints > bTotalPoints) return -1;
+    if (aTotalPoints < bTotalPoints) return 1;
+};
 
 const getWeek = function(data) {
     if (data) {
