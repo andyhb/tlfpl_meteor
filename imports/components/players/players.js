@@ -146,6 +146,16 @@ Template.playerEntry.helpers({
       }
     }
 
+    if (propertyName === "NextFixtures") {
+      let nfs = [];
+
+      player.NextFixtures.forEach(function(fixture) {
+        nfs.push(fixture.Opponent + " (" + (fixture.Home ? "H" : "A") + ")");
+      });
+
+      return nfs.join(", ");
+    }
+
     if (propertyName === "Name") {
       let fullName = player.Forename + " " + player.Surname;
       if (fullName !== player.WebName) {

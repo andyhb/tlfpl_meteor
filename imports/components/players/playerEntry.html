@@ -3,6 +3,11 @@
         <td class="col-sm-1 position {{GetPlayerProperty 'Position'}}">{{GetPlayerProperty "Position"}}</td>
         <td>{{GetPlayerProperty "Name"}}</td>
         <td>{{GetPlayerProperty "TeamName"}}</td>
+        {{#if isTeamPage}}
+        <td>    
+            {{GetPlayerProperty "NextFixtures"}}
+        </td>
+        {{/if}}
         <td>{{GetPlayerProperty "RecentPoints"}}</td>
         {{#if isGameweek}}
         <td>
