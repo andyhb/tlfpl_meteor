@@ -55,6 +55,14 @@ body {
     font-size: 80%;
 }
 
+#gameweekEntryTable .fa-check {
+    color: green;
+}
+
+#gameweekEntryTable .fa-clock {
+    color: red;
+}
+
 .playerInfo .fa-exclamation {
     color: orange;
 }

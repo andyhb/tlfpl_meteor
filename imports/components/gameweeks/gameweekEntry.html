@@ -15,7 +15,7 @@
         <thead>
             <tr>
                 <th scope="col">Team</th>
-                <th scope="col">Lineup Set</th>
+                <th scope="col">Lineup</th>
                 <th scope="col">Formation</th>
                 <th scope="col">Points</th>
             </tr>
@@ -24,7 +24,15 @@
             {{#each gameweek in data}}
             <tr class="gameweek-team toggleGameweekPlayers" id="{{gameweek.Gameweek}}_{{gameweek.TeamId}}">
                 <td>{{gameweek.TeamName}}</td>
-                <td>{{formatDate gameweek.DateLineupSet}}</td>
+                <td>
+                    {{#if isLineupSetOnTime gameweek}}
+                    <span class="fa fa-check" title="{{formatDate gameweek.DateLineupSet}}"></span>
+                    {{/if}}
+
+                    {{#if isLineupSetLate gameweek}}
+                    <span class="fa fa-clock" title="{{formatDate gameweek.DateLineupSet}}"></span>
+                    {{/if}}
+                </td>
                 <td>{{gameweek.Formation}}</td>
                 <td>{{gameweek.TotalPoints}}</td>
             </tr>
