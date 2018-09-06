@@ -15,8 +15,18 @@ body {
     color: red;
 }
 
+.navbar-nav {
+    margin: 0;
+}
+
+.navbar-nav > li > a {    
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
 #login-buttons {
     padding-top: 15px;
+    line-height: 20px;
 }
 
 #playersTable .GK.selected, #playersTable .position.GK {
@@ -78,6 +88,10 @@ body {
 
 .playerInfoStatus {
     margin-right: 15px;
+}
+
+.playerInfoStatValue {
+    font-weight: bold;
 }
 
 form#playerSearch {

@@ -52,20 +52,45 @@
         <div class="col-sm-12">
             <h3>Stats</h3>
 
+            <div class="row form-group">
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            Points:
+                        </div>
+                        <div class="col-sm-2 playerInfoStatValue">
+                            {{TotalPoints}}
+                        </div>
+                        <div class="col-sm-2">
+                            Minutes:
+                        </div>
+                        <div class="col-sm-2 playerInfoStatValue">
+                            {{Minutes}}
+                        </div>
+                        <div class="col-sm-2">
+                            <abbr title="Points per minute">PPM:</abbr>
+                        </div>
+                        <div class="col-sm-2 playerInfoStatValue">
+                            {{getPointsPerMinute}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="row">
                 <div class="col-sm-6">
                     <div class="row">
                         <div class="col-sm-3">
-                            Points:
+                            <abbr title="Bonus points system. See how it is calculated here: https://fantasy.premierleague.com/a/help">BPS:</abbr>
+                        </div>
+                        <div class="col-sm-3 playerInfoStatValue">
+                            {{BonusPointsSystem}}
                         </div>
                         <div class="col-sm-3">
-                            {{TotalPoints}}
+                            Bonus Points:
                         </div>
-                        <div class="col-sm-3">
-                            Minutes:
-                        </div>
-                        <div class="col-sm-3">
-                            {{Minutes}}
+                        <div class="col-sm-3 playerInfoStatValue">
+                            {{BonusPoints}}
                         </div>
                     </div>
                 </div>

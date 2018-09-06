@@ -50,6 +50,13 @@ Template.playerInfo.helpers({
         if (g) {
             return (next ? g.Gameweek + 1 : g.Gameweek);
         }
+    },
+    getPointsPerMinute() {
+        if (!this.Minutes || this.Minutes === 0) {
+            return 0;
+        }
+        
+        return (this.TotalPoints / this.Minutes).toFixed(2);
     }
 });
 
