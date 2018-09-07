@@ -1,0 +1,18 @@
+<template name="login">
+    {{#unless showLoginForm}}
+    <a href="/" id="showLoginForm">Login</a>
+    {{/unless}}
+
+    {{#if showLoginForm}}
+    <form id="login">
+        <input type="email" name="loginEmail" class="form-control" placeholder="Email address">
+        <input type="password" name="loginPassword" class="form-control" placeholder="Password">
+        <button type="submit" class="btn" value="Login" title="Login">
+            <span class="fa fa-sign-in-alt"></span>
+        </button>
+        <button type="button" class="btn" value="Cancel" id="cancelLogin" title="Cancel">
+            <span class="fa fa-times"></span>
+        </button>
+    </form>
+    {{/if}}
+</template>
