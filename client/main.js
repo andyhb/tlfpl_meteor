@@ -10,6 +10,8 @@ import '../imports/components/notifications/notification.js';
 import '../imports/components/playerInfo/playerInfo.js';
 import '../imports/components/transfer/transfer.js';
 import '../imports/components/compare/compareTeams.js';
+import '../imports/components/users/login.js';
+import '../imports/components/users/logout.js';
 
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
@@ -40,6 +42,8 @@ Template.navigation.onCreated(function bodyOnCreated() {
                     SeasonId: g.SeasonId
                 }));
             }
+        } else {
+            lineupSet.set(false);
         }
     });
 });

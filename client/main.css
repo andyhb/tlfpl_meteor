@@ -24,9 +24,13 @@ body {
     padding-bottom: 15px;
 }
 
-#login-buttons {
-    padding-top: 15px;
+#login {
+    padding-top: 10px;
     line-height: 20px;
+}
+
+#login .btn {
+    background: none;
 }
 
 #playersTable .GK.selected, #playersTable .position.GK {

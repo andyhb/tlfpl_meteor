@@ -4,6 +4,7 @@
             <div class="navbar-header navbar-left pull-left">
                 <a class="navbar-brand" href="/">TLFPL</a>
 
+                {{#if currentUser}}
                 <ul class="nav navbar-nav navbar-left pull-left">
                     {{#if isLineup}}
                     <li>
@@ -19,11 +20,18 @@
                     </li>
                     {{/if}}
                 </ul>
+                {{/if}}
             </div>
 
             <div class="navbar-header navbar-right pull-right">
                 <ul class="nav navbar-nav navbar-right pull-left">
-                    <li>{{> loginButtons}}</li>
+                    <li>
+                        {{#if currentUser}}
+                            {{> logout}}
+                        {{else}}
+                            {{> login}}
+                        {{/if}}
+                    </li>
                 </ul>
                 <button type="button" class="navbar-toggle collapsed btn btn-sm" data-toggle="collapse" data-target=".navbar-collapse" aria-expanded="false">
                     <span class="icon-bar"></span>
