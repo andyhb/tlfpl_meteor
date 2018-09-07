@@ -4,9 +4,13 @@
     {{/unless}}
 
     {{#if showLoginForm}}
-    <form id="login">
-        <input type="email" name="loginEmail" class="form-control" placeholder="Email address">
-        <input type="password" name="loginPassword" class="form-control" placeholder="Password">
+    <form id="login" class="form-inline">
+        <div class="form-group">
+            <input type="email" name="loginEmail" class="form-control" placeholder="Email address">
+        </div>
+        <div class="form-group">
+            <input type="password" name="loginPassword" class="form-control" placeholder="Password">
+        </div>
         <button type="submit" class="btn" value="Login" title="Login">
             <span class="fa fa-sign-in-alt"></span>
         </button>
