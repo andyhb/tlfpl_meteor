@@ -12,6 +12,7 @@ import '../imports/components/transfer/transfer.js';
 import '../imports/components/compare/compareTeams.js';
 import '../imports/components/users/login.js';
 import '../imports/components/users/logout.js';
+import '../imports/components/profile/profile.js';
 
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';

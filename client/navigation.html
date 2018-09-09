@@ -48,6 +48,10 @@
                     {{#if isAdmin}}
                     <li><a href="/admin">Admin</a></li>
                     {{/if}}
+
+                    {{#if currentUser}}
+                    <li><a href="/profile">Profile</a></li>
+                    {{/if}}
                 </ul>
             </div>
         </div>
