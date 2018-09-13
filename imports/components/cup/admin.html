@@ -1,0 +1,56 @@
+<template name="cupAdmin">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <h3>Create group</h3>
+            <input type="text" name="groupName" id="groupName" placeholder="Enter group name"/>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <h3>Add team to group</h3>
+            <form class="form" id="addTeamToGroup">
+                <select name="teamToAdd" id="teamToAdd">
+                    {{#each team in teams}}
+                    <option value="{{team._id}}">{{team.Name}} ({{team.ManagerName}})</option>
+                    {{/each}}
+                </select>
+                <button type="submit">Add</button>
+            </form>
+        </div>
+    </div>
+
+    {{#if groupTeams}}
+    <div class="row">
+        <div class="col-sm-12">
+            <h3>Teams in group {{groupName}} ({{numberOfTeamsInGroup}})</h3>
+            <ul>
+                {{#each team in groupTeams}}
+                <li>{{team.Name}}</li>
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+    {{/if}}
+
+    <div class="row">
+        <div class="col-sm-12">
+            <h3>Number of rounds</h3>
+            <select name="numberOfRounds" id="numberOfRounds">
+                <option value="1">1</option>
+                <option value="2">2</option>
+            </select>
+        </div>
+    </div>
+
+    {{#if anyAction}}
+    <div class="row">
+        <div class="col-sm-12">
+            <button class="btn btn-primary" id="confirmGroup">Confirm</button>
+            <button class="btn btn-secondary" id="resetGroup">Reset</button>
+        </div>
+    </div>
+    {{/if}}
+
+</template>
