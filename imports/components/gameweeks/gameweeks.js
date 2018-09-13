@@ -28,7 +28,7 @@ Template.home.helpers({
             return Gameweeks.find({SeasonId: g.SeasonId, Gameweek: (gameweek ? gameweek : globalGameweek)}, 
                 {sort: {
                     TotalPoints: -1,
-                    DateSet: 1
+                    DateLineupSet: 1
                 }
             });
         }

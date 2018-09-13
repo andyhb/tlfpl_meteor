@@ -8,6 +8,8 @@ import './admin.html';
 const groupName = new ReactiveVar();
 const groupTeams = new ReactiveVar([]);
 const numberOfRounds = new ReactiveVar();
+const startingWeek = new ReactiveVar();
+const skipWeek = new ReactiveVar();
 
 Template.cupAdmin.onCreated(function bodyOnCreated() {
     const currentUser = Meteor.user();
@@ -22,6 +24,8 @@ Template.cupAdmin.onCreated(function bodyOnCreated() {
 
     Meteor.subscribe("teams");
     numberOfRounds.set(1);
+    startingWeek.set(1);
+    skipWeek.set(1);
 });
 
 const getTeams = function() {
@@ -44,6 +48,20 @@ Template.cupAdmin.helpers({
     },
     groupTeams() {
         return groupTeams.get();
+    },
+    startingWeeks() {
+        let weeks = [];
+        for (let x = 1; x < 39; x++) {
+            weeks.push(x);
+        }
+        return weeks;
+    },
+    skipWeeks() {
+        let weeks = [];
+        for (let x = 1; x < 11; x++) {
+            weeks.push(x);
+        }
+        return weeks;
     },
     anyAction() {
         return groupTeams.get().length > 0 && groupName.get().length > 0;
@@ -70,6 +88,12 @@ Template.cupAdmin.events({
     'change #numberOfRounds' (event) {
         numberOfRounds.set(event.target.value);
     },
+    'change #startingWeek' (event) {
+        startingWeek.set(event.target.value);
+    },
+    'change #skipWeek' (event) {
+        skipWeek.set(event.target.value);
+    },
     'click #confirmGroup' () {
         var g = Globals.findOne();
 
@@ -86,7 +110,11 @@ Template.cupAdmin.events({
                 Name: groupName.get(),
                 Processed: false,
                 NumberOfRounds: parseInt(numberOfRounds.get()),
-                Order: order
+                Order: order,
+                SeasonId: g.SeasonId,
+                SeasonName: g.SeasonName,
+                StartingWeek: parseInt(startingWeek.get()),
+                SkipWeek: parseInt(skipWeek.get())
             };
 
             if (groupTeams % 2 !== 0) {

@@ -44,6 +44,28 @@
         </div>
     </div>
 
+    <div class="row">
+        <div class="col-sm-12">
+            <h3>Starting week</h3>
+            <select name="startingWeek" id="startingWeek">
+                {{#each week in startingWeeks}}
+                <option value="{{week}}">{{week}}</option>
+                {{/each}}
+            </select>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <h3>A fixture every 'x' weeks</h3>
+            <select name="skipWeek" id="skipWeek">
+                {{#each week in skipWeeks}}
+                <option value="{{week}}">{{week}}</option>
+                {{/each}}
+            </select>
+        </div>
+    </div>
+
     {{#if anyAction}}
     <div class="row">
         <div class="col-sm-12">
