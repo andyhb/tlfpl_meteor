@@ -116,7 +116,6 @@ Template.gameweekEntry.helpers({
 
 const isLineupSet = function(date) {
     let theDate = moment(date, "DD-MM-YYYY HH:mm:ss");
-    console.log(theDate.year());
 
     if (theDate.year() > 0) {
         return true;
