@@ -12,9 +12,9 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <td class="col-sm-1">Round</td>
-                        <td class="col-sm-1">Week</td>
-                        <td colspan="4" class="col-sm-10">Fixtures</td>
+                        <td>Round</td>
+                        <td>Week</td>
+                        <td colspan="4">Fixtures</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -28,10 +28,10 @@
                                     {{#each match in fixtureSet.Matches}}
                                     {{#if notBye match}}
                                     <tr>
-                                        <td class="col-sm-5 no-wrap home">{{match.Team1.TeamName}}</td>
-                                        <td class="col-sm-1"></td>
-                                        <td class="col-sm-1"></td>
-                                        <td class="col-sm-5 no-wrap away">{{match.Team2.TeamName}}</td>
+                                        <td style="width: 40%" class="no-wrap home">{{match.Team1.TeamName}}</td>
+                                        <td style="width: 5%"></td>
+                                        <td style="width: 5%"></td>
+                                        <td style="width: 40%" class="no-wrap away">{{match.Team2.TeamName}}</td>
                                     </tr>
                                     {{/if}}
                                     {{/each}}

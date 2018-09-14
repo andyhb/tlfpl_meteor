@@ -114,10 +114,13 @@ form#playerSearch {
 
 table.cupFixtureMatches {
     table-layout: fixed;
+    font-size: 80%;
 }
 
 td.no-wrap {
     white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 td.home {
