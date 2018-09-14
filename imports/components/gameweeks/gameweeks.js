@@ -64,7 +64,7 @@ Template.gameweekEntry.helpers({
         return getWeek(this.data);
     },
     isLineupSetOnTime(gameweek) {
-        if (!isLineupSet(gameweek.DateLineupSet)) {
+        if (!isLineupSet(gameweek.Formation)) {
             return false;
         }
 
@@ -75,7 +75,7 @@ Template.gameweekEntry.helpers({
         return true;
     },
     isLineupSetLate(gameweek) {
-        if (!isLineupSet(gameweek.DateLineupSet)) {
+        if (!isLineupSet(gameweek.Formation)) {
             return false;
         }
 
@@ -114,14 +114,8 @@ Template.gameweekEntry.helpers({
     }
 });
 
-const isLineupSet = function(date) {
-    let theDate = moment(date, "DD-MM-YYYY HH:mm:ss");
-
-    if (theDate.year() > 0) {
-        return true;
-    }
-
-    return false;
+const isLineupSet = function(formation) {
+    return !!formation;
 };
 
 const sortPlayers = function(a, b) {
