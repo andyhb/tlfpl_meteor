@@ -112,6 +112,18 @@ form#playerSearch {
     padding: 3px;
 }
 
+table.cupFixtureMatches {
+    table-layout: fixed;
+}
+
+td.no-wrap {
+    white-space: nowrap;
+}
+
+td.home {
+    text-align: right;
+}
+
 .cupFixtureMatches {
     margin: 0 !important;
     padding: 0 !important;

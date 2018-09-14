@@ -28,10 +28,10 @@
                                     {{#each match in fixtureSet.Matches}}
                                     {{#if notBye match}}
                                     <tr>
-                                        <td class="col-sm-5">{{match.Team1.TeamName}}</td>
+                                        <td class="col-sm-5 no-wrap home">{{match.Team1.TeamName}}</td>
                                         <td class="col-sm-1"></td>
                                         <td class="col-sm-1"></td>
-                                        <td class="col-sm-5">{{match.Team2.TeamName}}</td>
+                                        <td class="col-sm-5 no-wrap away">{{match.Team2.TeamName}}</td>
                                     </tr>
                                     {{/if}}
                                     {{/each}}
