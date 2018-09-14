@@ -14,6 +14,7 @@ import '../imports/components/users/login.js';
 import '../imports/components/users/logout.js';
 import '../imports/components/profile/profile.js';
 import '../imports/components/cup/admin.js';
+import '../imports/components/cup/fixtures.js';
 
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';

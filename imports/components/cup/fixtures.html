@@ -1,0 +1,48 @@
+<template name="cupFixtures">
+    <div class="row">
+        <div class="col-sm-12">
+            <h3>Cup Fixtures / Results</h3>
+        </div>
+    </div>
+
+    <div class="row">
+        {{#each groupFixtures in cupFixtures}}
+        <div class="col-sm-6">
+            <h4>Group {{groupFixtures.GroupName}}</h4>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td class="col-sm-1">Round</td>
+                        <td class="col-sm-1">Week</td>
+                        <td colspan="4" class="col-sm-10">Fixtures</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each fixtureSet in groupFixtures.Fixtures}}
+                    <tr>
+                        <td>{{fixtureSet.Week}}</td>
+                        <td>{{fixtureSet.Gameweek}}</td>
+                        <td colspan="4" class="cupFixtureMatches">
+                            <table class="table cupFixtureMatches">
+                                <tbody>
+                                    {{#each match in fixtureSet.Matches}}
+                                    {{#if notBye match}}
+                                    <tr>
+                                        <td class="col-sm-5">{{match.Team1.TeamName}}</td>
+                                        <td class="col-sm-1"></td>
+                                        <td class="col-sm-1"></td>
+                                        <td class="col-sm-5">{{match.Team2.TeamName}}</td>
+                                    </tr>
+                                    {{/if}}
+                                    {{/each}}
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+        {{/each}}
+    </div>
+</template>

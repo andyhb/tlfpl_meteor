@@ -3,10 +3,15 @@ import { Mongo } from 'meteor/mongo';
 import { check } from 'meteor/check';
  
 export const CupGroups = new Mongo.Collection('cup_groups');
+export const CupGroupFixtures = new Mongo.Collection('cup_group_fixtures');
 
 if (Meteor.isServer) {
     Meteor.publish('cup_groups', function cupGroupsPublication() {
         return CupGroups.find();
+    });
+
+    Meteor.publish('cup_group_fixtures', function cupGroupFixturesPublication() {
+        return CupGroupFixtures.find();
     });
 }
 
