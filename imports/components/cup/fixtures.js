@@ -5,11 +5,11 @@ import { ReactiveVar } from 'meteor/reactive-var';
 import {CupGroupFixtures} from '../../api/cup.js';
 import './fixtures.html';
 
-Template.cupFixtures.onCreated(function bodyOnCreated() {
+Template.fixtures.onCreated(function bodyOnCreated() {
     Meteor.subscribe("cup_group_fixtures");
 });
 
-Template.cupFixtures.helpers({
+Template.fixtures.helpers({
     cupFixtures() {
         return CupGroupFixtures.find();
     },

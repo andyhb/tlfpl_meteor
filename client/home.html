@@ -1,5 +1,15 @@
 <template name="home">
     {{#if Template.subscriptionsReady}}
+    {{#if cupWeek}}
+    <div class="row">
+        <div id="CupFixtures">
+            <div class="col-sm-12">
+                {{> cupFixtures}}
+            </div>
+        </div>
+    </div>
+    {{/if}}
+
     <div class="row">
         <div id="Gameweeks">
             <div class="col-sm-12">

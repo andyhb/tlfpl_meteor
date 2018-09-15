@@ -1,0 +1,17 @@
+<template name="cupFixtures">
+    <h3>Cup Matches <small class="text-muted">Gameweek {{getGameweek}}</small></h3>
+    <table class="table">
+        <tbody>
+        {{#each fixture in fixturesForGameweek}}
+            <tr>
+                <td style="width: 5%" class="text-muted">{{fixture.GroupName}}</td>
+                <td style="width: 40%" class="text-right">{{fixture.Team1.TeamName}}</td>
+                <td style="width: 5%"></td>
+                <td style="width: 5%" class="text-center"> v </td>
+                <td style="width: 5%"></td>
+                <td style="width: 40%" class="text-left">{{fixture.Team2.TeamName}}</td>
+            </tr>
+        {{/each}}
+        </tbody>
+    </table>
+</template>
