@@ -132,3 +132,7 @@ td.home {
     padding: 0 !important;
     border: 0 !important;
 }
+
+#playersTable .isGreater {
+    font-weight: bold;
+}

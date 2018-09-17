@@ -84,7 +84,7 @@ Template.navigation.helpers({
 // Meteor.connection._stream.on('message', message => {
 //     const data = JSON.parse(message);
 
-//     if (data.collection === 'cup_group_fixtures') {
+//     if (data.collection === 'teams') {
 //         console.log(data);
 //     }
 // });

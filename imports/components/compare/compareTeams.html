@@ -1,11 +1,43 @@
 <template name="compareTeams">
-    <div class="row">
-        <div class="col-sm-6">
-            {{> team}}
-        </div>
+    <div class="swiper-container">
+        <div class="row swiper-wrapper">
+            <div class="col-sm-12 swiper-slide">
+                {{> team}}
+            </div>
 
-        <div class="col-sm-6">
-            {{> team compare=true}}
+            <div class="col-sm-12 swiper-slide">
+                {{> compareTeamsSplit}}
+            </div>
+
+            <div class="col-sm-12 swiper-slide">
+                {{> team compare=true}}
+            </div>
+
+            <div class="swiper-scrollbar"></div>
         </div>
     </div>
+</template>
+
+<template name="compareTeamsSplit">
+    <h3>Compare Teams</h3>
+
+    <table class="table table-hover text-center" id="playersTable">
+        <thead>
+            <tr>
+                <th></th>
+                <th colspan="2" class="text-center"><abbr title="Total Points">TP</abbr></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each playerComparison in getCombinedPlayerList}}
+            <tr class="{{playerComparison.Position}}">
+                <td style="width: 40%" class="position {{playerComparison.Position}}">{{playerComparison.Team1PlayerName}}</td>
+                <td style="width: 10%; border-right: 1px solid #ddd" class="{{isGreater playerComparison.Team1PlayerTotalPoints playerComparison.Team2PlayerTotalPoints}}">{{playerComparison.Team1PlayerTotalPoints}}</td>
+                <td style="width: 10%" class="{{isGreater playerComparison.Team2PlayerTotalPoints playerComparison.Team1PlayerTotalPoints}}">{{playerComparison.Team2PlayerTotalPoints}}</td>
+                <td style="width: 40%" class="position {{playerComparison.Position}}">{{playerComparison.Team2PlayerName}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
 </template>
