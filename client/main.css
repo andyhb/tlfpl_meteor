@@ -3,6 +3,10 @@ body {
     padding-top: 60px;
 }
 
+table {
+    font-size: 90%;
+}
+
 #Spinner {
     padding-top: 60px;
 }
@@ -53,20 +57,12 @@ body {
     cursor: pointer;
 }
 
-.pointsBehind {
-    font-size: 80%;
-}
-
 #resultsTable .fa-angle-up {
     color: green;
 }
 
 #resultsTable .fa-angle-down {
     color: red;
-}
-
-#gameweekEntryTable .gameweekPlayers {
-    font-size: 80%;
 }
 
 #gameweekEntryTable .fa-check {
@@ -114,7 +110,6 @@ form#playerSearch {
 
 table.cupFixtureMatches {
     table-layout: fixed;
-    font-size: 80%;
 }
 
 td.no-wrap {
