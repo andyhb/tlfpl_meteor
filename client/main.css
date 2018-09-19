@@ -131,3 +131,13 @@ td.home {
 #playersTable .isGreater {
     font-weight: bold;
 }
+
+@media only screen and (max-width: 370px) {
+    table {
+        font-size: 70%;
+    }
+
+    table > tbody > tr > td > table {
+        font-size: 100%;
+    }
+}
