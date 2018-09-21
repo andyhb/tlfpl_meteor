@@ -4,11 +4,7 @@
         <td>{{GetPlayerProperty "Name"}}</td>
         <td>{{{GetPlayerProperty "NextFixtures"}}}</td>
         <td>{{GetPlayerProperty "RecentPoints"}}</td>
-        {{#if isGameweek}}
-        <td>
-            {{GetPlayerProperty "TotalPoints"}}
-        </td>
-        {{/if}}
+        <td>{{GetPlayerProperty "TotalPoints"}}</td>
         {{#if isTeamPage}}
         <td>    
             <b>{{GetPlayerProperty "PointsForTeam"}}</b>

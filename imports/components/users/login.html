@@ -1,6 +1,13 @@
 <template name="login">
-    {{#unless showLoginForm}}
-    <a href="/" id="showLoginForm">Login</a>
+    {{#unless showForm}}
+    <a class="{{getLoginClass}}" href="/" id="showLoginForm">
+        {{#unless getLoginError}}
+        Login
+        {{/unless}}
+        {{#if getLoginError}}
+        {{getLoginError}}
+        {{/if}}
+    </a>
     {{/unless}}
 
     {{#if showLoginForm}}
@@ -14,7 +21,25 @@
         <button type="submit" class="btn" value="Login" title="Login">
             <span class="fa fa-sign-in-alt"></span>
         </button>
+        <button type="button" class="btn" value="ForgotPassword" id="forgotPassword" title="Forgot password">
+            <span class="fa fa-question"></span>
+        </button>
         <button type="button" class="btn" value="Cancel" id="cancelLogin" title="Cancel">
+            <span class="fa fa-times"></span>
+        </button>
+    </form>
+    {{/if}}
+
+    {{#if showForgotPasswordForm}}
+    <form id="forgotPasswordForm" class="form-inline">
+        <div class="form-group">
+            <label for="emailAddress">Forgot password:</label>
+            <input type="email" name="forgotPasswordEmail" class="form-control" id="emailAddress" placeholder="Email address">
+        </div>
+        <button type="submit" class="btn" value="ResetPassword" title="Reset password">
+            <span class="fa fa-check"></span>
+        </button>
+        <button type="button" class="btn" value="Cancel" id="cancelForgotPassword" title="Cancel">
             <span class="fa fa-times"></span>
         </button>
     </form>

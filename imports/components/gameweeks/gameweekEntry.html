@@ -46,11 +46,12 @@
                                 <th scope="col">Name</th>
                                 <th scope="col">Fixtures</th>
                                 <th scope="col">Points</th>
+                                <th scope="col"><abbr title="Total Points">TP</abbr></th>
                             </tr>
                         </thead>
                         <tbody>
                             {{#each player in getSelectedPlayers gameweek.Players}}
-                            {{> playerEntry data=player context="gameweek"}}
+                            {{> playerEntry data=player gameweek=(getWeek data)}}
                             {{/each}}
                         </tbody>
                     </table>

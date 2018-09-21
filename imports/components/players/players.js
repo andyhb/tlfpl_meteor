@@ -141,6 +141,14 @@ Template.playerEntry.helpers({
     }
 
     if (propertyName === "RecentPoints") {
+      let g = Globals.findOne();
+
+      if (g) {
+        if (this.gameweek && this.gameweek > g.Gameweek) {
+          return 0;
+        }
+      }
+      
       return !!returnVal ? returnVal : 0;
     }
 
@@ -151,13 +159,23 @@ Template.playerEntry.helpers({
     }
 
     if (propertyName === "NextFixtures") {
-      let nfs = [];
+      let g = Globals.findOne();
 
-      player.NextFixtures.forEach(function(fixture) {
-        nfs.push(getFixture(player.TeamName, fixture));
-      });
+      if (g) {
+        let nfs = [];
 
-      return nfs.join(", ");
+        if (this.gameweek && this.gameweek <= g.Gameweek) {
+          player.CurrentFixtures.forEach(function(fixture) {
+            nfs.push(getFixture(player.TeamName, fixture));
+          });
+        } else {
+          player.NextFixtures.forEach(function(fixture) {
+            nfs.push(getFixture(player.TeamName, fixture));
+          });
+        }
+  
+        return nfs.join(", ");
+      }
     }
 
     if (propertyName === "Name") {
@@ -191,7 +209,7 @@ Template.playerEntry.helpers({
     return isTeamPage();
   },
   isGameweek() {
-    return this.context !== "gameweek";
+    return this.gameweek;
   },
   showPlayerInfo() {
     return (FlowRouter.current().path === "/players" || isTeamPage());

@@ -28,12 +28,12 @@ table {
     padding-bottom: 15px;
 }
 
-#login {
+#login, #forgotPasswordForm {
     padding-top: 8px;
     line-height: 20px;
 }
 
-#login .btn {
+#login .btn, #forgotPasswordForm .btn {
     background: none;
 }
 
