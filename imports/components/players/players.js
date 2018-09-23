@@ -141,40 +141,12 @@ Template.playerEntry.helpers({
     }
 
     if (propertyName === "RecentPoints") {
-      let g = Globals.findOne();
-
-      if (g) {
-        if (this.gameweek && this.gameweek > g.Gameweek) {
-          return 0;
-        }
-      }
-      
       return !!returnVal ? returnVal : 0;
     }
 
     if (propertyName === "TotalPoints") {
       if (isTeamPage()) {
         return this.data.Player.TotalPoints;
-      }
-    }
-
-    if (propertyName === "NextFixtures") {
-      let g = Globals.findOne();
-
-      if (g) {
-        let nfs = [];
-
-        if (this.gameweek && this.gameweek <= g.Gameweek) {
-          player.CurrentFixtures.forEach(function(fixture) {
-            nfs.push(getFixture(player.TeamName, fixture));
-          });
-        } else {
-          player.NextFixtures.forEach(function(fixture) {
-            nfs.push(getFixture(player.TeamName, fixture));
-          });
-        }
-  
-        return nfs.join(", ");
       }
     }
 
@@ -218,12 +190,6 @@ Template.playerEntry.helpers({
     return getInfoIconType(chance);
   }
 });
-
-const getFixture = function(playersTeam, fixture) {
-    return (fixture.Home ?
-         "<b>" + playersTeam + "</b> v " + fixture.Opponent : 
-         fixture.Opponent + " v <b>" + playersTeam + "</b>");
-  }
 
 const isTeamPage = function() {
   return FlowRouter.getParam('teamId');
