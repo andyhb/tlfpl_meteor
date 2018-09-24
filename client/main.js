@@ -16,6 +16,7 @@ import '../imports/components/profile/profile.js';
 import '../imports/components/cup/admin.js';
 import '../imports/components/cup/fixtures.js';
 import '../imports/components/cup/cupFixtures.js';
+import '../imports/components/chart/chart.js';
 
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
@@ -84,7 +85,7 @@ Template.navigation.helpers({
 // Meteor.connection._stream.on('message', message => {
 //     const data = JSON.parse(message);
 
-//     if (data.collection === 'teams') {
+//     if (data.collection === 'table') {
 //         console.log(data);
 //     }
 // });
