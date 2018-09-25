@@ -2,6 +2,9 @@
     <tr class="{{getClass}} {{GetPlayerProperty 'Position'}} {{isSelected}}">
         <td class="col-sm-1 position {{GetPlayerProperty 'Position'}}">{{GetPlayerProperty "Position"}}</td>
         <td>{{GetPlayerProperty "Name"}}</td>
+        {{#if isPlayersPage}}
+        <td>{{GetPlayerProperty "CurrentTeamName"}}</td>
+        {{/if}}
         <td>{{{GetPlayerProperty "Fixtures"}}}</td>
         <td>{{GetPlayerProperty "RecentPoints"}}</td>
         <td>{{GetPlayerProperty "TotalPoints"}}</td>

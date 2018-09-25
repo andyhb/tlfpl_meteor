@@ -10,11 +10,19 @@
         <form id="playerSearch">
           <div class="form-row">
             <div class="col-sm-6">
-              <label class="form-check-label" for="notPicked">Show only available</label>
+              <div class="form-group">
+                <label class="sr-only" for="playerName">Name</label>
+                <input type="text" class="form-control" id="playerName" placeholder="Enter player name">
+                <button type="button" class="btn" value="Cancel" id="cancelSearch" title="Cancel">
+                  <span class="fa fa-times"></span>
+                </button>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <label class="form-check-label" for="notPicked">Available</label>
               <input class="form-check-input" type="checkbox" value="" id="notPicked">
             </div>
-
-            <div class="col-sm-6">
+            <div class="col-sm-3">
               <label for="position">Position</label>
               <select class="form-control" id="position">
                 <option value="0">All</option>
@@ -32,6 +40,7 @@
             <tr>
               <th scope="col">Pos</th>
               <th scope="col">Name</th>
+              <th scope="col">Team</th>
               <th scope="col">Fixtures</th>
               <th scope="col"><abbr title="Recent Points">RP</abbr></th>
               <th scope="col"><abbr title="Total Points">TP</abbr></th>

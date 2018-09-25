@@ -49,6 +49,11 @@ const playerSearch = function() {
     }
   }
 
+  let searchString = searchStringState.get();
+  if (searchString) {
+    selector["SearchName"] = {$regex : searchString, $options : 'i'};
+  }
+
   return Players.find(selector, {
     sort: {
       TotalPoints: -1
@@ -63,6 +68,20 @@ Template.players.events({
   },
   'change #position'(event) {
     playerSearchPosition.set(event.target.value);
+  },
+  'keyup #playerName' (event) {
+    if (event.target.value.length > 2) {
+      searchStringState.set(event.target.value);
+    } else {
+      searchStringState.set();
+    }
+  },
+  'click #cancelSearch' () {
+    searchStringState.set();
+    Template.instance().$("#playerName").val("");
+  },
+  'submit #playerSearch' (event) {
+    event.preventDefault();
   }
 });
 
@@ -182,6 +201,9 @@ Template.playerEntry.helpers({
   },
   isGameweek() {
     return this.gameweek;
+  },
+  isPlayersPage() {
+    return !this.gameweek && !isTeamPage();
   },
   showPlayerInfo() {
     return (FlowRouter.current().path === "/players" || isTeamPage());
