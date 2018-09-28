@@ -9,6 +9,7 @@ import './chart.html';
 
 const pinkMode = new ReactiveVar(true);
 const onlyOwn = new ReactiveVar(false);
+const showPoints = new ReactiveVar(false);
 const currentUserTeam = new ReactiveVar();
 
 Template.chart.onCreated(function bodyOnCreated() {
@@ -28,6 +29,22 @@ Template.chart.onRendered(function () {
     this.autorun(() => {
         let gameweeks = [];
         let tableDatasets = [];
+        let options = {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        reverse: true,
+                        min: 1,
+                        max: 10,
+                        stepsize: 1
+                    }
+                }]
+            }
+        };
+
+        if (showPoints.get()) {
+            options = {};
+        }
 
         Table.find({}).forEach(function(table) {
             gameweeks.push(table.Gameweek);
@@ -36,7 +53,7 @@ Template.chart.onRendered(function () {
                 let teamData = tableDatasets.filter(tds => tds.label === teamStanding.TeamName)[0];
 
                 if (teamData) {
-                    teamData.data.push(teamStanding.Position);
+                    teamData.data.push(showPoints.get() ? teamStanding.TotalPoints : teamStanding.Position);
                 } else {
                     teamData = {};
                     teamData.label = teamStanding.TeamName;
@@ -69,7 +86,7 @@ Template.chart.onRendered(function () {
                         teamData.fill = false;
                     }
 
-                    teamData.data = [teamStanding.Position];
+                    teamData.data = [showPoints.get() ? teamStanding.TotalPoints : teamStanding.Position];
 
                     if (onlyOwn.get() && currentUserTeam.get()) {
                         if (currentUserTeam.get()._id !== teamStanding.TeamId) {
@@ -89,18 +106,7 @@ Template.chart.onRendered(function () {
                 labels: gameweeks,
                 datasets: tableDatasets
             },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            reverse: true,
-                            min: 1,
-                            max: 10,
-                            stepsize: 1
-                        }
-                    }]
-                }
-            }
+            options: options
         });
     });
 });
@@ -111,5 +117,8 @@ Template.chart.events({
     },
     'click #onlyOwn'() {
         onlyOwn.set(!onlyOwn.get());
+    },
+    'click #showPoints'() {
+        showPoints.set(!showPoints.get());
     }
 });
