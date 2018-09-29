@@ -11,6 +11,10 @@ Template.cupFixtures.onCreated(function bodyOnCreated() {
     Meteor.subscribe("cup_group_fixtures");
 });
 
+Template.home.onCreated(function bodyOnCreated() {
+    Meteor.subscribe("cup_group_fixtures");
+});
+
 Template.home.helpers({
     cupWeek() {
         let g = Globals.findOne();
