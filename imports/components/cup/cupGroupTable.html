@@ -1,0 +1,33 @@
+<template name="cupGroupTable">
+    <div class="col-sm-6">
+        <h4>
+            Group {{data.CupGroupName}}  <small class="text-muted">GW {{getGameweek}}</small>
+
+            {{#if showPreviousGameweekButton}}
+            <button previousGameweek class="btn" name="previousGameweek"><span class="fas fa-angle-double-left"></span></button>
+            {{/if}}
+
+            {{#if showNextGameweekButton}}
+            <button nextGameweek class="btn" name="nextGameweek"><span class="fas fa-angle-double-right"></span></button>
+            {{/if}}
+        </h4>
+
+        <table class="table" id="resultsTable">
+            <thead>
+                <tr>
+                <th scope="col">Position</th>
+                <th scope="col">Team</th>
+                <th scope="col">W</th>
+                <th scope="col">D</th>
+                <th scope="col">L</th>
+                <th scope="col">Points</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each data.Standings}}
+                {{> cupGroupTableEntry}}
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</template>

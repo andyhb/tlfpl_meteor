@@ -29,8 +29,8 @@
                                     {{#if notBye match}}
                                     <tr>
                                         <td style="width: 40%" class="no-wrap home">{{match.Team1.TeamName}}</td>
-                                        <td style="width: 5%"></td>
-                                        <td style="width: 5%"></td>
+                                        <td style="width: 5%" class="text-center">{{match.Team1.Points}}</td>
+                                        <td style="width: 5%" class="text-center">{{match.Team2.Points}}</td>
                                         <td style="width: 40%" class="no-wrap away">{{match.Team2.TeamName}}</td>
                                     </tr>
                                     {{/if}}
@@ -43,6 +43,18 @@
                 </tbody>
             </table>
         </div>
+        {{/each}}
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <h3>Cup Group Tables</h3>
+        </div>
+    </div>
+
+    <div class="row">
+        {{#each groupFixtures in cupFixtures}}
+        {{> cupGroupTable startingWeek=groupFixtures.StartingWeek skipWeek=groupFixtures.SkipWeek data=(getCupTableData groupFixtures._id)}}
         {{/each}}
     </div>
 </template>
