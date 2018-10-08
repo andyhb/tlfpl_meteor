@@ -17,6 +17,7 @@ import '../imports/components/cup/admin.js';
 import '../imports/components/cup/fixtures.js';
 import '../imports/components/cup/cupFixtures.js';
 import '../imports/components/chart/chart.js';
+import '../imports/components/hallOfFame/hallOfFame.js';
 
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
@@ -85,7 +86,7 @@ Template.navigation.helpers({
 // Meteor.connection._stream.on('message', message => {
 //     const data = JSON.parse(message);
 
-//     if (data.collection === 'table') {
+//     if (data.collection === 'halloffame') {
 //         console.log(data);
 //     }
 // });

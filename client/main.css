@@ -132,6 +132,14 @@ td.home {
     font-weight: bold;
 }
 
+.winner {
+    color: #C98910;
+}
+
+.runnerUp {
+    color: #A8A8A8;
+}
+
 @media only screen and (max-width: 370px) {
     table {
         font-size: 70%;

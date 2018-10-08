@@ -9,6 +9,7 @@ import '../imports/api/lineups.js';
 import '../imports/api/gameweek.js';
 import '../imports/api/transfers.js';
 import '../imports/api/cup.js';
+import '../imports/api/hallOfFame.js';
 
 Meteor.startup(() => {
   // code to run on server at startup

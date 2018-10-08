@@ -1,0 +1,71 @@
+<template name="hallOfFame">
+    <div class="row">
+        <div class="col-sm-12">
+            <h3>League <small class="text-muted">Hall of Fame</small></h3>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Position</th>
+                        <th scope="col">Manager</th>
+                        <th scope="col">Total Points</th>
+                        <th scope="col">Hall of Fame</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each leagueResult in getLeagueResults}}
+                    <tr>
+                        <td>{{getPosition(@index)}}</td>
+                        <td>{{leagueResult.ManagerName}}</td>
+                        <td>{{leagueResult.TotalPoints}}</td>
+                        <td>{{leagueResult.HallOfFamePoints}}</td>
+                        <td>
+                            {{#each getTrophies leagueResult.LeagueWinner}}
+                            <span class="fa fa-trophy winner"></span>
+                            {{/each}}
+                             
+                            {{#each getTrophies leagueResult.LeagueRunnerUp}}
+                            <span class="fa fa-trophy runnerUp"></span>
+                            {{/each}}
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <h3>Cup <small class="text-muted">Hall of Fame</small></h3>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Position</th>
+                        <th scope="col">Manager</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each cupResult in getCupResults}}
+                    <tr>
+                        <td>{{getPosition(@index)}}</td>
+                        <td>{{cupResult.ManagerName}}</td>
+                        <td>
+                            {{#each getTrophies cupResult.CupWinner}}
+                            <span class="fa fa-trophy winner"></span>
+                            {{/each}}
+                                
+                            {{#each getTrophies cupResult.CupRunnerUp}}
+                            <span class="fa fa-trophy runnerUp"></span>
+                            {{/each}}
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</template>
