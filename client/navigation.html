@@ -47,6 +47,10 @@
                     <li><a href="/players">Players</a></li>
                     <li><a href="/halloffame">Hall of Fame</a></li>
 
+                    {{#if isEventAdmin}}
+                    <li><a href="/events/admin">Event Admin</a></li>
+                    {{/if}}
+
                     {{#if isAdmin}}
                     <li><a href="/cup/admin">Cup Admin</a></li>
                     <li><a href="/admin">Admin</a></li>

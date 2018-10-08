@@ -1,0 +1,25 @@
+<template name="eventAdmin">
+    <header>
+        <h1>Events Admin</h1>
+
+        <form class="new-event">
+            <input type="text" name="title" placeholder="Event title"/>
+            <input type="datetime-local" name="date" placeholder="Event date and time"/>
+            <input type="submit" value="Create" />
+        </form>
+    </header>
+
+    <ul>
+        {{#each events}}
+        {{> eventAdminEntry}}
+        {{/each}}
+    </ul>
+</template>
+
+<template name="eventAdminEntry">
+    <li>
+        <button class="delete">&times;</button> 
+        {{Title}} on 
+        {{Date}}
+    </li>
+</template>

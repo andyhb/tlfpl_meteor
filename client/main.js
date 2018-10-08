@@ -18,6 +18,8 @@ import '../imports/components/cup/fixtures.js';
 import '../imports/components/cup/cupFixtures.js';
 import '../imports/components/chart/chart.js';
 import '../imports/components/hallOfFame/hallOfFame.js';
+import '../imports/components/events/admin.js';
+import '../imports/components/events/events.js';
 
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
@@ -68,6 +70,19 @@ Template.navigation.helpers({
         }
 
         if (currentUser.role && currentUser.role === 'admin') {
+            return true;
+        }
+
+        return false;
+    },
+    isEventAdmin() {
+        const currentUser = Meteor.user();
+
+        if (!currentUser) {
+            return false;
+        }
+
+        if (currentUser.role && currentUser.role.indexOf('admin') > -1) {
             return true;
         }
 
