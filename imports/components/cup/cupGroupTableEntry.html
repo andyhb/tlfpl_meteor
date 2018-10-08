@@ -1,6 +1,6 @@
 <template name="cupGroupTableEntry">
     <tr>
-        <th scope="row">
+        <td>
             {{Position}}
             {{#if movedUp Position PreviousPosition}}
             <span class="fas fa-angle-up"></span>
@@ -9,12 +9,13 @@
                 <span class="fas fa-angle-down"></span>
                 {{/if}}
             {{/if}}
-        </th>
+        </td>
         <td><a href="/team/{{TeamId}}">{{TeamName}}</a></td>
         <td>{{getPlayed}}</td>
         <td>{{Win}}</td>
         <td>{{Draw}}</td>
         <td>{{Lose}}</td>
+        <td>{{TotalPointsDifference}}</td>
         <td>{{Points}}</td>
     </tr>
 </template>
