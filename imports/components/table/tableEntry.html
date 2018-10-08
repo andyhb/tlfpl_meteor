@@ -11,7 +11,7 @@
             {{/if}}
         </th>
         <td><a href="/team/{{TeamId}}">{{TeamName}}</a></td>
-        <td>{{RecentPoints}}</td>
+        <td class="{{hasPenalty}}">{{RecentPoints}}</td>
         <td>{{TotalPoints}}</td>
         <td class="pointsBehind text-muted">
             {{#if showPointsBehind PointsBehind}}

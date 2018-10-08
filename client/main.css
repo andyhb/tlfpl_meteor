@@ -11,14 +11,6 @@ table {
     padding-top: 60px;
 }
 
-.navbar-default .navbar-nav > li > a.text-success {
-    color: green;
-}
-
-.navbar-default .navbar-nav > li > a.text-danger {
-    color: red;
-}
-
 .navbar-nav {
     margin: 0;
 }
@@ -57,28 +49,21 @@ table {
     cursor: pointer;
 }
 
-#resultsTable .fa-angle-up {
+#resultsTable .fa-angle-up, 
+#gameweekEntryTable .fa-check, 
+.navbar-default .navbar-nav > li > a.text-success {
     color: green;
 }
 
-#resultsTable .fa-angle-down {
-    color: red;
-}
-
-#gameweekEntryTable .fa-check {
-    color: green;
-}
-
-#gameweekEntryTable .fa-clock {
+#resultsTable .fa-angle-down, 
+#gameweekEntryTable .fa-clock, 
+.playerInfo .fa-exclamation-triangle, 
+.navbar-default .navbar-nav > li > a.text-danger {
     color: red;
 }
 
 .playerInfo .fa-exclamation {
     color: orange;
-}
-
-.playerInfo .fa-exclamation-triangle {
-    color: red;
 }
 
 .playerInfo:hover {
@@ -88,10 +73,6 @@ table {
 
 .playerInfoStatus {
     margin-right: 15px;
-}
-
-.playerInfoStatValue {
-    font-weight: bold;
 }
 
 form#playerSearch {
@@ -118,17 +99,13 @@ td.no-wrap {
     text-overflow: ellipsis;
 }
 
-td.home {
-    text-align: right;
-}
-
 .cupFixtureMatches {
     margin: 0 !important;
     padding: 0 !important;
     border: 0 !important;
 }
 
-#playersTable .isGreater, .isGreater {
+#playersTable .isGreater, .isGreater, .playerInfoStatValue {
     font-weight: bold;
 }
 

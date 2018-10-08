@@ -104,5 +104,12 @@ Template.tableEntry.helpers({
     }
 
     return true;
+  },
+  hasPenalty() {
+    if (this.Penalty) {
+      return "text-danger";
+    }
+
+    return "";
   }
 });
