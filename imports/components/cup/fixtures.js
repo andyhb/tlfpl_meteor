@@ -30,6 +30,24 @@ Template.fixtures.helpers({
                 _id: (gameweek ? gameweek : globalGameweek) + "/" + g.SeasonId + "/" + id
             });
         }
+    },
+    isGreater(fixture, team1) {
+        if (team1) {
+            if (fixture.Team1.Points > fixture.Team2.Points) {
+                return "isGreater";
+            }
+        } else {
+            if (fixture.Team2.Points > fixture.Team1.Points) {
+                return "isGreater";
+            }
+        }
+    },
+    showPoints(points) {
+        if (points) {
+            return points;
+        } else {
+            return "";
+        }
     }
 });
 
@@ -94,24 +112,27 @@ Template.cupGroupTable.events({
 Template.cupGroupTableEntry.helpers({
     movedUp(position, previousPosition) {
         if (!previousPosition) {
-          return false;
+            return false;
         }
-    
+
         if (position < previousPosition) {
-          return true;
+            return true;
         }
-    
+
         return false;
-      },
-      movedDown(position, previousPosition) {
+    },
+    movedDown(position, previousPosition) {
         if (!previousPosition) {
-          return false;
+            return false;
         }
-    
+
         if (position > previousPosition) {
-          return true;
+            return true;
         }
-    
+
         return false;
-      }
+    },
+    getPlayed() {
+        return this.Win + this.Lose + this.Draw;
+    }
 });

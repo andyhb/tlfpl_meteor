@@ -64,6 +64,17 @@ Template.cupFixtures.helpers({
     },
     getGameweek() {
         return cupGameweek.get();
+    },
+    isGreater(fixture, team1) {
+        if (team1) {
+            if (fixture.Team1.Points > fixture.Team2.Points) {
+                return "isGreater";
+            }
+        } else {
+            if (fixture.Team2.Points > fixture.Team1.Points) {
+                return "isGreater";
+            }
+        }
     }
 });
 

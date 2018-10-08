@@ -6,9 +6,9 @@
             <tr>
                 <td style="width: 5%" class="text-muted">{{fixture.GroupName}}</td>
                 <td style="width: 40%" class="text-right">{{fixture.Team1.TeamName}}</td>
-                <td style="width: 5%" class="text-center">{{fixture.Team1.Points}}</td>
+                <td style="width: 5%" class="text-center {{isGreater fixture true}}">{{fixture.Team1.Points}}</td>
                 <td style="width: 5%" class="text-center"> v </td>
-                <td style="width: 5%" class="text-center">{{fixture.Team2.Points}}</td>
+                <td style="width: 5%" class="text-center {{isGreater fixture false}}">{{fixture.Team2.Points}}</td>
                 <td style="width: 40%" class="text-left">{{fixture.Team2.TeamName}}</td>
             </tr>
         {{/each}}

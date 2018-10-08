@@ -12,8 +12,8 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <td>Round</td>
-                        <td>Week</td>
+                        <td>Rnd</td>
+                        <td>Wk</td>
                         <td colspan="4">Fixtures</td>
                     </tr>
                 </thead>
@@ -22,16 +22,17 @@
                     <tr>
                         <td>{{fixtureSet.Week}}</td>
                         <td>{{fixtureSet.Gameweek}}</td>
-                        <td colspan="4" class="cupFixtureMatches">
+                        <td colspan="5" class="cupFixtureMatches">
                             <table class="table cupFixtureMatches">
                                 <tbody>
                                     {{#each match in fixtureSet.Matches}}
                                     {{#if notBye match}}
                                     <tr>
-                                        <td style="width: 40%" class="no-wrap home">{{match.Team1.TeamName}}</td>
-                                        <td style="width: 5%" class="text-center">{{match.Team1.Points}}</td>
-                                        <td style="width: 5%" class="text-center">{{match.Team2.Points}}</td>
-                                        <td style="width: 40%" class="no-wrap away">{{match.Team2.TeamName}}</td>
+                                        <td style="width: 40%" class="no-wrap text-right">{{match.Team1.TeamName}}</td>
+                                        <td style="width: 7.5%" class="text-center {{isGreater match true}}">{{showPoints match.Team1.Points}}</td>
+                                        <td style="width: 5%" class="text-center"> v </td>
+                                        <td style="width: 7.5%" class="text-center {{isGreater match false}}">{{showPoints match.Team2.Points}}</td>
+                                        <td style="width: 40%" class="no-wrap text-left">{{match.Team2.TeamName}}</td>
                                     </tr>
                                     {{/if}}
                                     {{/each}}

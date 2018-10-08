@@ -128,7 +128,7 @@ td.home {
     border: 0 !important;
 }
 
-#playersTable .isGreater {
+#playersTable .isGreater, .isGreater {
     font-weight: bold;
 }
 
