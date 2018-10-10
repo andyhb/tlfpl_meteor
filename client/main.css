@@ -58,7 +58,8 @@ table {
 #resultsTable .fa-angle-down, 
 #gameweekEntryTable .fa-clock, 
 .playerInfo .fa-exclamation-triangle, 
-.navbar .navbar-nav > li > a.text-danger {
+.navbar .navbar-nav > li > a.text-danger, 
+#resultsTable .text-danger {
     color: red;
 }
 
