@@ -1,3 +1,23 @@
 <template name="events">
-    
+    <div class="row">
+        <div class="col-sm-12">
+            <h3>League Events</h3>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <ul id="eventList" class="list-unstyled">
+            {{#each events}}
+            {{> eventEntry}}
+            {{/each}}
+            </ul>
+        </div>
+    </div>
+</template>
+
+<template name="eventEntry">
+    <li>
+        <h4><span class="{{getType}}"></span> {{Title}} <small class="text-muted align-right">{{formatDate Date}}</small></h4>
+    </li>
 </template>

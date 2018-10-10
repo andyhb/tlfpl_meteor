@@ -4,6 +4,10 @@
 
         <form class="new-event">
             <input type="text" name="title" placeholder="Event title"/>
+            <select name="type">
+                <option value="calendar">Calendar</option>
+                <option value="match">Match</option>
+            </select>
             <input type="datetime-local" name="date" placeholder="Event date and time"/>
             <input type="submit" value="Create" />
         </form>
@@ -19,7 +23,9 @@
 <template name="eventAdminEntry">
     <li>
         <button class="delete">&times;</button> 
-        {{Title}} on 
-        {{Date}}
+        {{Title}} 
+        {{Type}} event on 
+        {{Date}} 
+        (<input type="checkbox" checked="{{showOnHomePage}}" class="toggle-showOnHomePage"/> show on homepage)
     </li>
 </template>

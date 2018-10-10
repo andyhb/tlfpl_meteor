@@ -5,16 +5,29 @@ import { check } from 'meteor/check';
 export const Events = new Mongo.Collection('league_events');
 
 if (Meteor.isServer) {
-    // This code only runs on the server
     Meteor.publish('league_events', function eventsPublication() {
         return Events.find();
+    });
+
+    Meteor.publish('league_events_upcoming', function eventsUpcomingPublication() {
+        return Events.find({
+            Date: { $gte : new Date()}
+        });
+    });
+
+    Meteor.publish('league_events_upcoming_homepage', function eventsUpcomingHomePagePublication() {
+        return Events.find({
+            Date: { $gte : new Date()},
+            ShowOnHomePage: 1
+        });
     });
 }
 
 Meteor.methods({
-    'events.insert' (title, date) {
+    'events.insert' (title, date, type) {
         check(title, String);
         check(date, Date);
+        check(type, String);
      
         if (!Meteor.userId()) {
           throw new Meteor.Error('not-authorized');
@@ -24,7 +37,8 @@ Meteor.methods({
           Title: title,
           Created: new Date(),
           CreatedBy: Meteor.userId(),
-          Date: date
+          Date: date,
+          Type: type
         });
     },
     'events.remove' (id) {
@@ -33,5 +47,19 @@ Meteor.methods({
         const event = Events.findOne(id);
     
         Events.remove(event);
-    }
+    },
+    'events.setShowOnHomePage' (id, setChecked) {
+        check(id, String);
+        check(setChecked, Boolean);
+
+        if (!Meteor.userId()) {
+            throw new Meteor.Error('not-authorized');
+        }
+     
+        Events.update(id, {
+          $set: {
+            ShowOnHomePage: setChecked
+          }
+        });
+    },
 });

@@ -16,7 +16,12 @@ Template.eventAdmin.onCreated(function bodyOnCreated() {
         FlowRouter.go("/");
     }
 
-    Meteor.subscribe("league_events");
+    let self = this;
+    self.subscribe("league_events");
+});
+
+Template.eventAdmin.onDestroyed(function() {
+    self.stop();
 });
 
 Template.eventAdmin.helpers({
@@ -29,6 +34,12 @@ Template.eventAdmin.helpers({
     }
 });
 
+Template.eventAdminEntry.helpers({
+    showOnHomePage() {
+        return this.ShowOnHomePage;
+    }
+});
+
 Template.eventAdmin.events({
     'submit .new-event'(event) {
         event.preventDefault();
@@ -36,16 +47,21 @@ Template.eventAdmin.events({
         const target = event.target;
         const title = target.title.value;
         const date = new Date(target.date.value);
+        const type = target.type.value;
     
-        Meteor.call('events.insert', title, date);
+        Meteor.call('events.insert', title, date, type);
     
         target.title.value = '';
         target.date.value = '';
+        target.type.value = '';
     }
 });
 
 Template.eventAdminEntry.events({
     'click .delete'() {
         Meteor.call('events.remove', this._id);
+    },
+    'click .toggle-showOnHomePage'() {
+        Meteor.call('events.setShowOnHomePage', this._id, !this.ShowOnHomePage);
     }
 });
