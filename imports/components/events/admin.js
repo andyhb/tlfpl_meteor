@@ -25,6 +25,9 @@ Template.eventAdmin.onDestroyed(function() {
 });
 
 Template.eventAdmin.helpers({
+    getDefaultDateTimeValue() {
+        return "2018-10-01T12:00";
+    },
     events() {
         return Events.find({}, {
             sort: {

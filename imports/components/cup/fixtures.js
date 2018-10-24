@@ -23,12 +23,28 @@ Template.fixtures.helpers({
         var g = Globals.findOne();
 
         if (g) {
+            const selector = {};
             var gameweek = gameweekState.get();
             globalGameweek = g.Gameweek;
 
-            return CupGroupTables.findOne({
-                _id: (gameweek ? gameweek : globalGameweek) + "/" + g.SeasonId + "/" + id
-            });
+            selector.SeasonId = g.SeasonId;
+            selector.CupGroupId = id;
+
+            var tables = CupGroupTables.find(selector).fetch();
+
+            if (tables) {
+                var gw = (gameweek ? gameweek : globalGameweek);
+                var selectedTable = tables.filter(table => table.Gameweek === gw)[0];
+
+                if (!selectedTable) {
+                    gw = ((gameweek ? gameweek : globalGameweek) - 1);
+                    selectedTable = tables.filter(table => table.Gameweek === gw)[0];
+                }
+
+                if (selectedTable) {
+                    return selectedTable;
+                }
+            }
         }
     },
     isGreater(fixture, team1) {
