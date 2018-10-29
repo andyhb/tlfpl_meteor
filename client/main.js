@@ -101,7 +101,7 @@ Template.navigation.helpers({
 // Meteor.connection._stream.on('message', message => {
 //     const data = JSON.parse(message);
 
-//     if (data.collection === 'halloffame') {
+//     if (data.collection === 'teams') {
 //         console.log(data);
 //     }
 // });

@@ -38,7 +38,7 @@ Template.transfer.onDestroyed(function () {
 
 Template.transfer.helpers({
     transfer() {
-        return Teams.findOne();
+        return Teams.findOne({_id: FlowRouter.getParam('teamId')});
     },
     getCurrentPlayers() {
         if (!playersOutInProgress.get()) {
