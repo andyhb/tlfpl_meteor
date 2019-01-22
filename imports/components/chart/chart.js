@@ -66,7 +66,7 @@ Template.chart.onRendered(function () {
                             teamData.borderColor = 'rgb(176,128,64)';
                         } else if (teamStanding.TeamName === "TBA FC") {
                             teamData.borderColor = 'rgb(227,37,107)';
-                        } else if (teamStanding.TeamName === "Dyslexia Untied" || "Victor Moses Lawn") {
+                        } else if (teamStanding.TeamName === "Dyslexia Untied" || teamStanding.TeamName ===  "Victor Moses Lawn") {
                             teamData.borderColor = 'rgb(40,106,77)';
                         } else if (teamStanding.TeamName === "FC Quichetopol") {
                             teamData.borderColor = 'rgb(236,213,64)';
