@@ -14,6 +14,7 @@ const currentUserTeam = new ReactiveVar();
 
 Template.chart.onCreated(function bodyOnCreated() {
     Meteor.subscribe("table");
+    Meteor.subscribe("teams");
     Meteor.subscribe('currentUserTeamId');
 
     this.autorun(() => {
@@ -50,6 +51,10 @@ Template.chart.onRendered(function () {
             gameweeks.push(table.Gameweek);
 
             table.Standings.forEach(function(teamStanding) {
+                if (teamStanding.TeamName === "Dyslexia Untied") {
+                    teamStanding.TeamName = "Victor Moses Lawn";
+                }
+
                 let teamData = tableDatasets.filter(tds => tds.label === teamStanding.TeamName)[0];
 
                 if (teamData) {
@@ -60,28 +65,13 @@ Template.chart.onRendered(function () {
                     if (pinkMode.get()) {
                         teamData.borderColor = 'rgb(255,99,132)';
                     } else {
-                        if (teamStanding.TeamName === "Rich's Belly Floppers") {
-                            teamData.borderColor = 'rgb(151,245,245)';
-                        } else if (teamStanding.TeamName === "Cotton Pickers") {
-                            teamData.borderColor = 'rgb(176,128,64)';
-                        } else if (teamStanding.TeamName === "TBA FC") {
-                            teamData.borderColor = 'rgb(227,37,107)';
-                        } else if (teamStanding.TeamName === "Dyslexia Untied" || teamStanding.TeamName ===  "Victor Moses Lawn") {
-                            teamData.borderColor = 'rgb(40,106,77)';
-                        } else if (teamStanding.TeamName === "FC Quichetopol") {
-                            teamData.borderColor = 'rgb(236,213,64)';
-                        } else if (teamStanding.TeamName === "Bangkok Young Boys") {
-                            teamData.borderColor = 'rgb(183,132,167)';
-                        } else if (teamStanding.TeamName === "Lads On Toure") {
-                            teamData.borderColor = 'rgb(255,0,0)';
+                        let currentTeam = Teams.findOne(teamStanding.TeamId);
+                        teamData.borderColor = currentTeam.ChartColour;
+
+                        if (currentTeam.ChartStyle === "Dashed") {
                             teamData.borderDash = [5,5];
-                        } else if (teamStanding.TeamName === "Pinky's U-11s") {
-                            teamData.borderColor = 'rgb(50,50,255)';
-                        } else if (teamStanding.TeamName === "BJ Falls FC") {
-                            teamData.borderColor = 'rgb(110,238,110)';
-                        } else {
-                            teamData.borderColor = 'rgb(255,99,132)';
                         }
+
                         teamData.backgroundColor = teamData.borderColor;
                         teamData.fill = false;
                     }
