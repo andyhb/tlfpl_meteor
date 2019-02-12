@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 
-import {CupGroupFixtures, CupGroupTables} from '../../api/cup.js';
+import {CupGroupFixtures, CupGroupTables, CupKnockoutFixtures} from '../../api/cup.js';
 import './fixtures.html';
 import './cupGroupTable.html';
 import './cupGroupTableEntry.html';
@@ -10,11 +10,15 @@ import './cupGroupTableEntry.html';
 Template.fixtures.onCreated(function bodyOnCreated() {
     Meteor.subscribe("cup_group_fixtures");
     Meteor.subscribe("cup_group_tables");
+    Meteor.subscribe("cup_knockout_fixtures");
 });
 
 Template.fixtures.helpers({
-    cupFixtures() {
+    cupGroupFixtures() {
         return CupGroupFixtures.find();
+    },
+    cupKnockoutFixtures() {
+        return CupKnockoutFixtures.find();
     },
     notBye(match) {
         return !match.Team1.Bye && !match.Team2.Bye;
