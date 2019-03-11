@@ -24,9 +24,23 @@
                             <td style="width: 5%">{{fixture.Week}}</td>
                             <td style="width: 5%">{{fixture.Leg}}</td>
                             <td style="width: 32.5%" class="text-right">{{match.Team1.TeamName}}</td>
-                            <td style="width: 5%" class="text-center {{isGreater match true}}">{{match.Team1.Points}}</td>
+                            <td style="width: 5%" class="text-center {{isGreater match true}}">
+                                {{match.Team1.Points}}
+                                {{#if match.Team1.Aggregate}}
+                                <span class="text-muted">
+                                     ({{match.Team1.Aggregate}})
+                                </span>
+                                {{/if}}
+                            </td>
                             <td style="width: 5%" class="text-center"> v </td>
-                            <td style="width: 5%" class="text-center {{isGreater match false}}">{{match.Team2.Points}}</td>
+                            <td style="width: 5%" class="text-center {{isGreater match false}}">
+                                {{match.Team2.Points}}
+                                {{#if match.Team2.Aggregate}}
+                                <span class="text-muted">
+                                     ({{match.Team2.Aggregate}})
+                                </span>
+                                {{/if}}
+                            </td>
                             <td style="width: 32.5%" class="text-left">{{match.Team2.TeamName}}</td>
                             <td style="width: 10%" class="text-muted text-right">{{match.FixtureName}}</td>
                         </tr>

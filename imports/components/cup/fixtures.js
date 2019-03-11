@@ -18,7 +18,11 @@ Template.fixtures.helpers({
         return CupGroupFixtures.find();
     },
     cupKnockoutFixtures() {
-        return CupKnockoutFixtures.find();
+        return CupKnockoutFixtures.find({}, {
+            sort: {
+              RoundOrder: -1
+            }
+        });
     },
     notBye(match) {
         return !match.Team1.Bye && !match.Team2.Bye;
@@ -41,8 +45,9 @@ Template.fixtures.helpers({
                 var selectedTable = tables.filter(table => table.Gameweek === gw)[0];
 
                 if (!selectedTable) {
-                    gw = ((gameweek ? gameweek : globalGameweek) - 1);
-                    selectedTable = tables.filter(table => table.Gameweek === gw)[0];
+                    var orderedTables = tables.sort(sortTables);
+
+                    return orderedTables[0];
                 }
 
                 if (selectedTable) {
@@ -70,6 +75,14 @@ Template.fixtures.helpers({
         }
     }
 });
+
+const sortTables = function(a, b) {  
+    let aGameweek = a.Gameweek;
+    let bGameweek = b.Gameweek;
+    
+    if (aGameweek > bGameweek) return -1;
+    if (aGameweek < bGameweek) return 1;
+};
 
 const gameweekState = new ReactiveVar();
 let globalGameweek = 1;
