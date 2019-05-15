@@ -101,7 +101,7 @@ Template.cupGroupTable.helpers({
         if (this.data) {
             var gameweek = this.data.Gameweek + this.skipWeek;
 
-            if (gameweek > globalGameweek) {
+            if (gameweek > globalGameweek || gameweek > 26) {
                 return false;
             }
 
