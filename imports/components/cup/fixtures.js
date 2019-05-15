@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 
-import {CupGroupFixtures, CupGroupTables} from '../../api/cup.js';
+import {CupGroupFixtures, CupGroupTables, CupKnockoutFixtures} from '../../api/cup.js';
 import './fixtures.html';
 import './cupGroupTable.html';
 import './cupGroupTableEntry.html';
@@ -10,11 +10,19 @@ import './cupGroupTableEntry.html';
 Template.fixtures.onCreated(function bodyOnCreated() {
     Meteor.subscribe("cup_group_fixtures");
     Meteor.subscribe("cup_group_tables");
+    Meteor.subscribe("cup_knockout_fixtures");
 });
 
 Template.fixtures.helpers({
-    cupFixtures() {
+    cupGroupFixtures() {
         return CupGroupFixtures.find();
+    },
+    cupKnockoutFixtures() {
+        return CupKnockoutFixtures.find({}, {
+            sort: {
+              RoundOrder: -1
+            }
+        });
     },
     notBye(match) {
         return !match.Team1.Bye && !match.Team2.Bye;
@@ -37,8 +45,9 @@ Template.fixtures.helpers({
                 var selectedTable = tables.filter(table => table.Gameweek === gw)[0];
 
                 if (!selectedTable) {
-                    gw = ((gameweek ? gameweek : globalGameweek) - 1);
-                    selectedTable = tables.filter(table => table.Gameweek === gw)[0];
+                    var orderedTables = tables.sort(sortTables);
+
+                    return orderedTables[0];
                 }
 
                 if (selectedTable) {
@@ -66,6 +75,14 @@ Template.fixtures.helpers({
         }
     }
 });
+
+const sortTables = function(a, b) {  
+    let aGameweek = a.Gameweek;
+    let bGameweek = b.Gameweek;
+    
+    if (aGameweek > bGameweek) return -1;
+    if (aGameweek < bGameweek) return 1;
+};
 
 const gameweekState = new ReactiveVar();
 let globalGameweek = 1;

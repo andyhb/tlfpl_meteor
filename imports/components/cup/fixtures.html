@@ -5,8 +5,55 @@
         </div>
     </div>
 
+    {{#each round in cupKnockoutFixtures}}
+    <h4>{{round.Round}}</h4>
     <div class="row">
-        {{#each groupFixtures in cupFixtures}}
+        <div class="col-sm-12">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td>Wk</td>
+                        <td>Leg</td>
+                        <td colspan="6">Fixtures</td>
+                    </tr>
+                </thead>
+                <tbody>
+                {{#each fixture in round.Fixtures}}
+                    {{#each match in fixture.Matches}}
+                        <tr>
+                            <td style="width: 5%">{{fixture.Week}}</td>
+                            <td style="width: 5%">{{fixture.Leg}}</td>
+                            <td style="width: 32.5%" class="text-right">{{match.Team1.TeamName}}</td>
+                            <td style="width: 5%" class="text-center {{isGreater match true}}">
+                                {{match.Team1.Points}}
+                                {{#if match.Team1.Aggregate}}
+                                <span class="text-muted">
+                                     ({{match.Team1.Aggregate}})
+                                </span>
+                                {{/if}}
+                            </td>
+                            <td style="width: 5%" class="text-center"> v </td>
+                            <td style="width: 5%" class="text-center {{isGreater match false}}">
+                                {{match.Team2.Points}}
+                                {{#if match.Team2.Aggregate}}
+                                <span class="text-muted">
+                                     ({{match.Team2.Aggregate}})
+                                </span>
+                                {{/if}}
+                            </td>
+                            <td style="width: 32.5%" class="text-left">{{match.Team2.TeamName}}</td>
+                            <td style="width: 10%" class="text-muted text-right">{{match.FixtureName}}</td>
+                        </tr>
+                    {{/each}}
+                {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {{/each}}
+
+    <div class="row">
+        {{#each groupFixtures in cupGroupFixtures}}
         <div class="col-sm-6">
             <h4>Group {{groupFixtures.GroupName}}</h4>
             <table class="table">
@@ -54,7 +101,7 @@
     </div>
 
     <div class="row">
-        {{#each groupFixtures in cupFixtures}}
+        {{#each groupFixtures in cupGroupFixtures}}
         {{> cupGroupTable startingWeek=groupFixtures.StartingWeek skipWeek=groupFixtures.SkipWeek data=(getCupTableData groupFixtures._id)}}
         {{/each}}
     </div>

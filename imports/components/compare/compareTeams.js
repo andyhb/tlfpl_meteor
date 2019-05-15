@@ -103,7 +103,7 @@ const getPosition = function(position) {
     }
   };
 
-  const sortPlayers = function(a, b) {  
+const sortPlayers = function(a, b) {  
     let aRecentPoints = a.RecentPoints;
     let bRecentPoints = b.RecentPoints;
 
