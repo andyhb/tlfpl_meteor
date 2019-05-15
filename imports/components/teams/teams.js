@@ -158,6 +158,11 @@ Template.team.helpers({
       return false;
     }
 
+    const nextGameweek = this.getGameweek(true);
+    if (nextGameweek > 38) {
+      return false;
+    }
+
     const currentUser = Meteor.user();
 
     // not if they're not a user!
