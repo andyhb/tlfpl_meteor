@@ -39,7 +39,7 @@ Template.gameweekEntry.helpers({
     showNextGameweekButton() {
         var gameweek = getWeek(this.data) + 1;
 
-        if (gameweek > globalGameweek + 1) {
+        if (gameweek > globalGameweek + 1 || gameweek > 38) {
             return false;
         }
 
