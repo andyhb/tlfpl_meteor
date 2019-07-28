@@ -1,88 +1,98 @@
 <template name="admin">
-<!--    <header>
-        <h1>Users</h1>
+  <header>
+    <h1>Users</h1>
 
-        <form class="new-user">
-            <label for="email">Email: </label>
-            <input type="email" id="email" name="email" placeholder="Enter user email address"/>
-            
-            <label for="password">Password: </label>
-            <input type="password" id="password" name="password" placeholder="Enter user password"/>
+    <form class="new-user">
+      <label for="email">Email: </label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        placeholder="Enter user email address"
+      />
 
-            <input type="submit" value="Create" />
-        </form>
-    </header>
+      <label for="password">Password: </label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        placeholder="Enter user password"
+      />
 
-    <ul>
-        {{#each users}}
-        {{> user}}
+      <input type="submit" value="Create" />
+    </form>
+  </header>
+
+  <ul>
+    {{#each users}}
+    {{> user}}
+    {{/each}}
+  </ul>
+
+  <header>
+    <h1>Seasons</h1>
+
+    <form class="new-season">
+      <input type="text" name="text" placeholder="Type to add new season" />
+    </form>
+  </header>
+
+  <ul>
+    {{#each seasons}}
+    {{> season}}
+    {{/each}}
+  </ul>
+
+  <header>
+    <h1>Teams</h1>
+
+    <form class="new-team">
+      <input type="text" name="name" placeholder="New team name" />
+      <select name="manager">
+        {{#each manager in managers}}
+        <option value="{{ manager._id }}">{{ manager.name }}</option>
         {{/each}}
-    </ul>
-     
-    <header>
-        <h1>Seasons</h1>
+      </select>
+      <input type="number" name="draftOrder" placeholder="Draft order" />
+      <input type="submit" value="Create" />
+    </form>
+  </header>
 
-        <form class="new-season">
-            <input type="text" name="text" placeholder="Type to add new season"/>
-        </form>
-    </header>
+  <ul>
+    {{#each teams}}
+    {{> teamEntry}}
+    {{/each}}
+  </ul>
 
-    <ul>
-        {{#each seasons}}
-        {{> season}}
+  <header>
+    <h1>Add player to team</h1>
+
+    <form class="find-player">
+      <input type="text" name="playerName" placeholder="Enter player name" />
+      <select name="teamToAddPlayerTo" id="teamToAddPlayerTo">
+        {{#each team in teams}}
+        <option value="{{ team._id }}">{{ team.Name }}</option>
         {{/each}}
-    </ul>
-
-    <header>
-        <h1>Teams</h1>
-
-        <form class="new-team">
-            <input type="text" name="name" placeholder="New team name"/>
-            <select name="manager">
-                {{#each manager in managers}}
-                <option value="{{manager._id}}">{{manager.name}}</option>
-                {{/each}}
-            </select>
-            <input type="number" name="draftOrder" placeholder="Draft order"/>
-            <input type="submit" value="Create"/>
-        </form>
-    </header>
-
-    <ul>
-        {{#each teams}}
-        {{> teamEntry}}
-        {{/each}}
-    </ul> -->
-
-    <header>
-        <h1>Add player to team</h1>
-
-        <form class="find-player">
-            <input type="text" name="playerName" placeholder="Enter player name"/>
-            <select name="teamToAddPlayerTo" id="teamToAddPlayerTo">
-                {{#each team in teams}}
-                <option value="{{team._id}}">{{team.Name}}</option>
-                {{/each}}
-            </select>
-        </form>
-    </header>
-    {{#if players}}
-    <table class="table" id="playersTable">
-        <thead>
-            <tr>
-                <th scope="col">Position</th>
-                <th scope="col">Name</th>
-                <th scope="col">Team</th>
-                <th scope="col">Recent Points</th>
-                <th scope="col">Total Points</th>
-                <th scope="col">Points For Team</th>
-            </tr>
-        </thead>
-        <tbody>
-            {{#each players}}
-            {{> playerEntry data=playerContext}}
-            {{/each}}
-        </tbody>
-    </table>
-    {{/if}}
+      </select>
+    </form>
+  </header>
+  {{#if players}}
+  <table class="table" id="playersTable">
+    <thead>
+      <tr>
+        <th scope="col">Position</th>
+        <th scope="col">Name</th>
+        <th scope="col">Team</th>
+        <th scope="col">Recent Points</th>
+        <th scope="col">Total Points</th>
+        <th scope="col">Points For Team</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each players}}
+      {{> playerEntry data=playerContext}}
+      {{/each}}
+    </tbody>
+  </table>
+  {{/if}}
 </template>
