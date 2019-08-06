@@ -1,26 +1,26 @@
-import { Meteor } from 'meteor/meteor';
-import { Template } from 'meteor/templating';
-import { ReactiveVar } from 'meteor/reactive-var';
+import { Meteor } from "meteor/meteor";
+import { Template } from "meteor/templating";
+import { ReactiveVar } from "meteor/reactive-var";
 
-import {Teams} from '../../api/teams.js';
-import '../../api/users.js';
-import './teamEntry.html';
-import './team.html';
+import { Teams } from "../../api/teams.js";
+import "../../api/users.js";
+import "./teamEntry.html";
+import "./team.html";
 
-import '../players/playerEntry.html';
+import "../players/playerEntry.html";
 
-import '../../api/lineups.js';
-import { Lineups } from '../../api/lineups.js';
+import "../../api/lineups.js";
+import { Lineups } from "../../api/lineups.js";
 
 const playersSelected = new ReactiveVar([]);
 const lineupSet = new ReactiveVar();
 let formation = {};
 
 Template.team.onCreated(function bodyOnCreated() {
-  Meteor.subscribe('teamInfo', FlowRouter.getParam('teamId'));
-  Meteor.subscribe('teamInfo', FlowRouter.getParam('teamToCompareId'));
-  Meteor.subscribe('currentUserTeamId');
-  Meteor.subscribe('userData');
+  Meteor.subscribe("teamInfo", FlowRouter.getParam("teamId"));
+  Meteor.subscribe("teamInfo", FlowRouter.getParam("teamToCompareId"));
+  Meteor.subscribe("currentUserTeamId");
+  Meteor.subscribe("userData");
 
   formation = {
     1: 0,
@@ -35,16 +35,22 @@ Template.team.onCreated(function bodyOnCreated() {
     let g = Globals.findOne();
 
     if (g) {
-      Meteor.subscribe('teamLineup', FlowRouter.getParam('teamId'));
+      Meteor.subscribe("teamLineup", FlowRouter.getParam("teamId"));
 
       let lineupForTeam = Lineups.findOne({
-        _id: (g.Gameweek + 1) + "/" + g.SeasonId + "/" + FlowRouter.getParam('teamId')
+        _id:
+          g.Gameweek +
+          1 +
+          "/" +
+          g.SeasonId +
+          "/" +
+          FlowRouter.getParam("teamId")
       });
-      
+
       if (lineupForTeam) {
         let selectedPlayers = lineupForTeam.Players;
 
-        let positionsArray = lineupForTeam.Formation.split('-');
+        let positionsArray = lineupForTeam.Formation.split("-");
         formation[1] = 1;
         for (var i = 1; i < positionsArray.length + 1; i++) {
           formation[i + 1] = positionsArray[i - 1];
@@ -59,22 +65,27 @@ Template.team.onCreated(function bodyOnCreated() {
   });
 });
 
-Template.team.onDestroyed(function () {
+Template.team.onDestroyed(function() {
   formation = {};
   playersSelected.set();
 });
 
 Template.admin.onCreated(function bodyOnCreated() {
-  Meteor.subscribe('teams');
-  Meteor.subscribe('users');
+  Meteor.subscribe("teams");
+  Meteor.subscribe("users");
 });
 
 const getTeams = function() {
-  return Teams.find({}, {
-    sort: {
-      DraftOrder: 1
+  return Teams.find(
+    {
+      SeasonId: this.SeasonId
+    },
+    {
+      sort: {
+        DraftOrder: 1
+      }
     }
-  });
+  );
 };
 
 Template.admin.helpers({
@@ -87,31 +98,39 @@ Template.admin.helpers({
 });
 
 Template.admin.events({
-  'submit .new-team'(event) {
+  "submit .new-team"(event) {
     event.preventDefault();
 
     const target = event.target;
     const Name = target.name.value;
     const ManagerId = target.manager.value;
     const DraftOrder = parseInt(target.draftOrder.value);
-    const ManagerName = target.manager.options[target.manager.selectedIndex].text;
+    const ManagerName =
+      target.manager.options[target.manager.selectedIndex].text;
 
     var g = Globals.findOne();
 
     if (g) {
       let SeasonId = g.SeasonId;
       let SeasonName = g.SeasonName;
-      Meteor.call('teams.insert', {Name, ManagerId, ManagerName, SeasonId, SeasonName, DraftOrder});
+      Meteor.call("teams.insert", {
+        Name,
+        ManagerId,
+        ManagerName,
+        SeasonId,
+        SeasonName,
+        DraftOrder
+      });
     }
-  
-    target.name.value = '';
-    target.draftOrder.value = '';
-  },
+
+    target.name.value = "";
+    target.draftOrder.value = "";
+  }
 });
 
 Template.teamEntry.events({
-  'click .delete'() {
-    Meteor.call('teams.remove', this._id);
+  "click .delete"() {
+    Meteor.call("teams.remove", this._id);
   }
 });
 
@@ -119,12 +138,12 @@ Template.team.helpers({
   team() {
     if (this.compare) {
       return Teams.findOne({
-        _id: FlowRouter.getParam('teamToCompareId')
+        _id: FlowRouter.getParam("teamToCompareId")
       });
     }
-    
+
     return Teams.findOne({
-      _id: FlowRouter.getParam('teamId')
+      _id: FlowRouter.getParam("teamId")
     });
   },
   getPlayers(current) {
@@ -134,11 +153,11 @@ Template.team.helpers({
       this.Players.sort(sortPlayers);
 
       if (current) {
-        players = this.Players.filter(function (player) {
+        players = this.Players.filter(function(player) {
           return player.Current;
         });
       } else {
-        players = this.Players.filter(function (player) {
+        players = this.Players.filter(function(player) {
           return !player.Current;
         });
       }
@@ -169,7 +188,7 @@ Template.team.helpers({
     if (!currentUser) {
       return false;
     }
-    
+
     // yes if they own the team
     if (currentUser._id === this.ManagerId) {
       return true;
@@ -212,7 +231,10 @@ Template.team.helpers({
   },
   getCurrentUserTeamId() {
     const currentUser = Meteor.user();
-    const team = Teams.findOne({SeasonId: this.SeasonId, ManagerId: currentUser._id});
+    const team = Teams.findOne({
+      SeasonId: this.SeasonId,
+      ManagerId: currentUser._id
+    });
 
     if (team) {
       return team._id;
@@ -230,7 +252,7 @@ Template.team.helpers({
     if (!currentUser) {
       return false;
     }
-    
+
     // not if they own the team
     if (currentUser._id === this.ManagerId) {
       return false;
@@ -242,11 +264,11 @@ Template.team.helpers({
 });
 
 const isAdmin = function(currentUser) {
-  return currentUser.role && currentUser.role === 'admin';
+  return currentUser.role && currentUser.role === "admin";
 };
 
 Template.team.events({
-  'click .toggle-selection'() {
+  "click .toggle-selection"() {
     let selected = playersSelected.get();
 
     if (selected.indexOf(this.data.Player._id) > -1) {
@@ -263,7 +285,7 @@ Template.team.events({
 
     playersSelected.set(selected);
   },
-  'click .set-lineup'(event) {
+  "click .set-lineup"(event) {
     const target = event.target;
 
     let g = Globals.findOne();
@@ -286,7 +308,7 @@ Template.team.events({
         DateSet: new Date()
       };
 
-      Meteor.call('lineups.update', lineup);
+      Meteor.call("lineups.update", lineup);
     }
   }
 });
