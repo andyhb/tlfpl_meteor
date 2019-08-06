@@ -1,10 +1,10 @@
-import { Meteor } from 'meteor/meteor';
-import { Template } from 'meteor/templating';
-import { ReactiveVar } from 'meteor/reactive-var';
+import { Meteor } from "meteor/meteor";
+import { Template } from "meteor/templating";
+import { ReactiveVar } from "meteor/reactive-var";
 
-import {Players} from '../../api/players.js';
-import './players.html';
-import './playerEntry.html';
+import { Players } from "../../api/players.js";
+import "./players.html";
+import "./playerEntry.html";
 
 const searchStringState = new ReactiveVar();
 const teamToAddPlayerTo = new ReactiveVar();
@@ -13,13 +13,13 @@ const playerSearchPosition = new ReactiveVar();
 
 Template.players.onCreated(function bodyOnCreated() {
   let self = this;
-  self.subscribe('players');
+  self.subscribe("players");
   notPicked.set(false);
   playerSearchPosition.set(0);
 });
 
 Template.admin.onCreated(function bodyOnCreated() {
-  Meteor.subscribe('players');
+  Meteor.subscribe("players");
 });
 
 Template.admin.onDestroyed(function() {
@@ -34,71 +34,84 @@ Template.players.helpers({
 });
 
 const playerSearch = function() {
-  let selector = {};
+  var g = Globals.findOne();
 
-  if (notPicked.get()) {
-    selector["CurrentTeamId"] = null;
-  }
+  if (g) {
+    let selector = {
+      SeasonId: g.SeasonId
+    };
 
-  let position = playerSearchPosition.get();
-  if (position) {
-    position = parseInt(position);
-
-    if (position !== 0) {
-      selector["Position"] = position;
+    if (notPicked.get()) {
+      selector["CurrentTeamId"] = null;
     }
-  }
 
-  let searchString = searchStringState.get();
-  if (searchString) {
-    selector["SearchName"] = {$regex : searchString, $options : 'i'};
-  }
+    let position = playerSearchPosition.get();
+    if (position) {
+      position = parseInt(position);
 
-  return Players.find(selector, {
-    sort: {
-      TotalPoints: -1
-    },
-    limit: 50
-  });
+      if (position !== 0) {
+        selector["Position"] = position;
+      }
+    }
+
+    let searchString = searchStringState.get();
+    if (searchString) {
+      selector["SearchName"] = { $regex: searchString, $options: "i" };
+    }
+
+    return Players.find(selector, {
+      sort: {
+        TotalPoints: -1
+      },
+      limit: 50
+    });
+  }
 };
 
 Template.players.events({
-  'change #notPicked'(event) {
+  "change #notPicked"(event) {
     notPicked.set(event.target.checked);
   },
-  'change #position'(event) {
+  "change #position"(event) {
     playerSearchPosition.set(event.target.value);
   },
-  'keyup #playerName' (event) {
+  "keyup #playerName"(event) {
     if (event.target.value.length > 2) {
       searchStringState.set(event.target.value);
     } else {
       searchStringState.set();
     }
   },
-  'click #cancelSearch' () {
+  "click #cancelSearch"() {
     searchStringState.set();
-    Template.instance().$("#playerName").val("");
+    Template.instance()
+      .$("#playerName")
+      .val("");
   },
-  'submit #playerSearch' (event) {
+  "submit #playerSearch"(event) {
     event.preventDefault();
   }
 });
 
 Template.admin.helpers({
   players() {
-    const search = searchStringState.get();
+    var g = Globals.findOne();
 
-    if (search) {
-      const selector = {
-        "SearchName" : {$regex : searchStringState.get(), $options : 'i'}
-      };
+    if (g) {
+      const search = searchStringState.get();
 
-      return Players.find(selector, {
-        sort: {
-          TotalPoints: -1
-        }
-      });
+      if (search) {
+        const selector = {
+          SearchName: { $regex: searchStringState.get(), $options: "i" },
+          SeasonId: g.SeasonId
+        };
+
+        return Players.find(selector, {
+          sort: {
+            TotalPoints: -1
+          }
+        });
+      }
     }
   },
   playerContext() {
@@ -109,7 +122,9 @@ Template.admin.helpers({
     if (teamId) {
       context.teamId = teamId;
     } else {
-      context.teamId = Template.instance().$("#teamToAddPlayerTo").val();
+      context.teamId = Template.instance()
+        .$("#teamToAddPlayerTo")
+        .val();
     }
 
     return context;
@@ -117,14 +132,14 @@ Template.admin.helpers({
 });
 
 Template.admin.events({
-  'submit .find-player'() {
+  "submit .find-player"() {
     event.preventDefault();
     const target = event.target;
     const name = target.playerName.value;
 
     searchStringState.set(name);
   },
-  'change #teamToAddPlayerTo'() {
+  "change #teamToAddPlayerTo"() {
     const target = event.target;
     const teamId = target.value;
 
@@ -135,7 +150,7 @@ Template.admin.events({
 Template.playerEntry.helpers({
   GetPlayerProperty(propertyName) {
     let player = this.data;
-    let returnVal = '';
+    let returnVal = "";
 
     if (player[propertyName]) {
       returnVal = player[propertyName];
@@ -206,7 +221,7 @@ Template.playerEntry.helpers({
     return !this.gameweek && !isTeamPage();
   },
   showPlayerInfo() {
-    return (FlowRouter.current().path === "/players" || isTeamPage());
+    return FlowRouter.current().path === "/players" || isTeamPage();
   },
   getInfoIconType(chance) {
     return getInfoIconType(chance);
@@ -214,26 +229,26 @@ Template.playerEntry.helpers({
 });
 
 const isTeamPage = function() {
-  return FlowRouter.getParam('teamId');
+  return FlowRouter.getParam("teamId");
 };
 
 const getInfoIconType = function(chance) {
-    if (chance < 0 || chance === 100) {
-      return "info-circle";
-    }
+  if (chance < 0 || chance === 100) {
+    return "info-circle";
+  }
 
-    if (!chance || chance === 0) {
-      return "exclamation-triangle";
-    }
+  if (!chance || chance === 0) {
+    return "exclamation-triangle";
+  }
 
-    return "exclamation";
+  return "exclamation";
 };
 
 Template.playerEntry.events({
-  'click .add-player-to-team' () {
-    Meteor.call('teams.addPlayer', this.data.teamId, this.data._id);
+  "click .add-player-to-team"() {
+    Meteor.call("teams.addPlayer", this.data.teamId, this.data._id);
   },
-  'click .playerInfo' () {
+  "click .playerInfo"() {
     event.stopPropagation();
   }
 });
@@ -254,4 +269,4 @@ const getPosition = function(position) {
   if (position === 4) {
     return "FOR";
   }
-}
+};

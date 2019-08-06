@@ -177,7 +177,7 @@ Template.team.helpers({
       return false;
     }
 
-    const nextGameweek = this.getGameweek(true);
+    const nextGameweek = getGameweek(true);
     if (nextGameweek > 38) {
       return false;
     }
@@ -210,13 +210,6 @@ Template.team.helpers({
   isLineupDisabled() {
     if (playersSelected.get().length !== 11) {
       return "disabled";
-    }
-  },
-  getGameweek(next) {
-    let g = Globals.findOne();
-
-    if (g) {
-      return next ? g.Gameweek + 1 : g.Gameweek;
     }
   },
   lineupSet() {
@@ -262,6 +255,14 @@ Template.team.helpers({
     return true;
   }
 });
+
+const getGameweek = function(next) {
+  let g = Globals.findOne();
+
+  if (g) {
+    return next ? g.Gameweek + 1 : g.Gameweek;
+  }
+};
 
 const isAdmin = function(currentUser) {
   return currentUser.role && currentUser.role === "admin";
