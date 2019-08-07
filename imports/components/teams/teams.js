@@ -1,6 +1,7 @@
 import { Meteor } from "meteor/meteor";
 import { Template } from "meteor/templating";
 import { ReactiveVar } from "meteor/reactive-var";
+import { Tracker } from "meteor/tracker";
 
 import { Teams } from "../../api/teams.js";
 import "../../api/users.js";
@@ -31,7 +32,7 @@ Template.team.onCreated(function bodyOnCreated() {
   playersSelected.set([]);
   lineupSet.set(false);
 
-  this.autorun(() => {
+  Tracker.autorun(() => {
     let g = Globals.findOne();
 
     if (g) {
@@ -170,6 +171,9 @@ Template.team.helpers({
   },
   getFormation() {
     return getFormation();
+  },
+  getGameweek(next) {
+    return getGameweek(next);
   },
   canSetLineup() {
     // not if in comparison view
