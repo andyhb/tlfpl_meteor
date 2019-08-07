@@ -1,17 +1,17 @@
-import { Meteor } from 'meteor/meteor';
-import { Template } from 'meteor/templating';
-import { ReactiveVar } from 'meteor/reactive-var';
+import { Meteor } from "meteor/meteor";
+import { Template } from "meteor/templating";
+import { ReactiveVar } from "meteor/reactive-var";
 
-import {Table} from '../../api/table.js';
-import './table.html';
-import './tableEntry.html';
+import { Table } from "../../api/table.js";
+import "./table.html";
+import "./tableEntry.html";
 
 const gameweekState = new ReactiveVar();
 let globalGameweek = 1;
 
 Template.home.onCreated(function bodyOnCreated() {
   let self = this;
-  self.subscribe('table');
+  self.subscribe("table");
 });
 
 Template.home.onDestroyed(function() {
@@ -27,7 +27,10 @@ Template.home.helpers({
       globalGameweek = g.Gameweek;
 
       return Table.findOne({
-        _id: (gameweek ? gameweek : globalGameweek) + "/" + g.SeasonId
+        _id:
+          (gameweek ? gameweek : globalGameweek === 0 ? 1 : globalGameweek) +
+          "/" +
+          g.SeasonId
       });
     }
   }
@@ -55,7 +58,7 @@ Template.table.helpers({
 });
 
 Template.table.events({
-  'click [nextGameweek]'() {
+  "click [nextGameweek]"() {
     var gameweek = this.data.Gameweek + 1;
 
     if (gameweek > globalGameweek) {
@@ -64,7 +67,7 @@ Template.table.events({
 
     gameweekState.set(gameweek);
   },
-  'click [previousGameweek]'() {
+  "click [previousGameweek]"() {
     var gameweek = this.data.Gameweek - 1;
 
     if (gameweek < 1) {
