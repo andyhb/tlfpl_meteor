@@ -1,0 +1,13 @@
+<template name="finesEntry">
+  <tr>
+    <td>
+      <a href="/team/{{ data.TeamId }}">{{ data.TeamName }}</a>
+    </td>
+    <td>{{ data.YellowCards }}</td>
+    <td>{{ data.RedCards }}</td>
+    <td>{{ data.OwnGoals }}</td>
+    <td>{{ data.PenaltiesMissed }}</td>
+    <td>{{ data.MissedLineup }}</td>
+    <td>{{ getCurrency(data.Fines) }}</td>
+  </tr>
+</template>

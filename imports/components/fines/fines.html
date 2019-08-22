@@ -1,0 +1,59 @@
+<template name="fines">
+  {{#if Template.subscriptionsReady}}
+  <header>
+    <h3>
+      Fines <small class="text-muted">GW {{ getGameweek }}</small>
+
+      {{#if showPreviousGameweekButton}}
+      <button previousGameweek class="btn" name="previousGameweek">
+        <span class="fas fa-angle-double-left"></span>
+      </button>
+      {{/if}}
+
+      {{#if showNextGameweekButton}}
+      <button nextGameweek class="btn" name="nextGameweek">
+        <span class="fas fa-angle-double-right"></span>
+      </button>
+      {{/if}}
+    </h3>
+  </header>
+
+  <table class="table" id="finesTable">
+    <thead>
+      <tr>
+        <th scope="col">Team</th>
+        <th scope="col">Yellows</th>
+        <th scope="col">Reds</th>
+        <th scope="col">Own Goals</th>
+        <th scope="col">Missed Pens</th>
+        <th scope="col">Missed Lineup</th>
+        <th scope="col">Fines</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each fine in fines}}
+      {{> finesEntry data=fine}}
+      {{/each}}
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Total:</td>
+        <td>{{ getTotalFines }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Managers totals here</h3>
+  {{else}}
+  <div class="row">
+    <div id="Spinner">
+      <div class="col-sm-12">
+        {{> spinner}}
+      </div>
+    </div>
+  </div>
+  {{/if}}
+</template>
