@@ -62,8 +62,7 @@ const playerSearch = function() {
     return Players.find(selector, {
       sort: {
         TotalPoints: -1
-      },
-      limit: 50
+      }
     });
   }
 };

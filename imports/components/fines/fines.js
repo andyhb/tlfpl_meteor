@@ -2,18 +2,21 @@ import { Meteor } from "meteor/meteor";
 import { Template } from "meteor/templating";
 import { ReactiveVar } from "meteor/reactive-var";
 
-import { TeamFines } from "../../api/fines.js";
+import { TeamFines, ManagerFines } from "../../api/fines.js";
 import "./fines.html";
 import "./finesEntry.html";
+import "./managerFinesEntry.html";
 
 const gameweekState = new ReactiveVar();
 const gameweekTotal = new ReactiveVar();
+const managerFinesTotal = new ReactiveVar();
+const managerPaidTotal = new ReactiveVar();
 let globalGameweek = 1;
 
 Template.fines.onCreated(function bodyOnCreated() {
   let self = this;
   self.subscribe("teamFines");
-  //Meteor.subscribe("managerFines");
+  self.subscribe("managerFines");
 });
 
 Template.fines.onDestroyed(function() {
@@ -39,7 +42,6 @@ Template.fines.helpers({
 
       const fines = TeamFines.find(
         {
-          SeasonId: g.SeasonId,
           Gameweek: actualGameweek
         },
         {
@@ -57,6 +59,33 @@ Template.fines.helpers({
       gameweekTotal.set(totalForGameweek);
 
       return fines;
+    }
+  },
+  managerFines() {
+    var g = Globals.findOne();
+
+    if (g) {
+      const managerFines = ManagerFines.find(
+        {},
+        {
+          sort: {
+            TotalFines: -1,
+            TotalPaid: 1,
+            Name: 1
+          }
+        }
+      );
+
+      let totalFines = 0;
+      let totalPaid = 0;
+      managerFines.forEach(mf => {
+        totalFines += mf.TotalFines;
+        totalPaid += mf.TotalPaid;
+      });
+      managerFinesTotal.set(totalFines);
+      managerPaidTotal.set(totalPaid);
+
+      return managerFines;
     }
   },
   showNextGameweekButton() {
@@ -82,6 +111,12 @@ Template.fines.helpers({
   },
   getTotalFines() {
     return formatCurrency(gameweekTotal.get());
+  },
+  getTotalManagerFines() {
+    return formatCurrency(managerFinesTotal.get());
+  },
+  getTotalManagerPaid() {
+    return formatCurrency(managerPaidTotal.get());
   }
 });
 
@@ -107,6 +142,12 @@ Template.fines.events({
 });
 
 Template.finesEntry.helpers({
+  getCurrency(fine) {
+    return formatCurrency(fine);
+  }
+});
+
+Template.managerFinesEntry.helpers({
   getCurrency(fine) {
     return formatCurrency(fine);
   }

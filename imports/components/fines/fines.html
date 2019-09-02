@@ -46,7 +46,37 @@
     </tbody>
   </table>
 
-  <h3>Managers totals here</h3>
+  <h3>Managers Season Fines</h3>
+
+  <table class="table" id="managerFinesTable">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Yellows</th>
+        <th scope="col">Reds</th>
+        <th scope="col">Own Goals</th>
+        <th scope="col">Missed Pens</th>
+        <th scope="col">Missed Lineups</th>
+        <th scope="col">Total Fines</th>
+        <th scope="col">Total Paid</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each fine in managerFines}}
+      {{> managerFinesEntry data=fine}}
+      {{/each}}
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Totals:</td>
+        <td>{{ getTotalManagerFines }}</td>
+        <td>{{ getTotalManagerPaid }}</td>
+      </tr>
+    </tbody>
+  </table>
   {{else}}
   <div class="row">
     <div id="Spinner">

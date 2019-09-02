@@ -1,0 +1,12 @@
+<template name="managerFinesEntry">
+  <tr>
+    <td>{{ data.Name }}</td>
+    <td>{{ data.YellowCards }}</td>
+    <td>{{ data.RedCards }}</td>
+    <td>{{ data.OwnGoals }}</td>
+    <td>{{ data.PenaltiesMissed }}</td>
+    <td>{{ data.MissedLineup }}</td>
+    <td>{{ getCurrency(data.TotalFines) }}</td>
+    <td>{{ getCurrency(data.TotalPaid) }}</td>
+  </tr>
+</template>
