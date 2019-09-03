@@ -61,6 +61,39 @@ Template.hallOfFame.helpers({
     }
 
     return "-";
+  },
+  getCupPosition(season, leagueResults) {
+    if (leagueResults) {
+      const slr = leagueResults.filter(lr => {
+        return lr.SeasonName === season;
+      })[0];
+
+      if (slr) {
+        if (slr.Position === 1) {
+          return `<span class="fa fa-trophy winner"></span>`;
+        }
+
+        if (slr.Position === 2) {
+          return `<span class="fa fa-trophy runnerUp"></span>`;
+        }
+
+        if (slr.Position === 3) {
+          return `S`;
+        }
+
+        if (slr.Position === 4) {
+          return `WC`;
+        }
+
+        if (slr.Position === 5) {
+          return `G`;
+        }
+
+        return slr.Position;
+      }
+    }
+
+    return "-";
   }
 });
 

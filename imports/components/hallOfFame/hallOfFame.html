@@ -52,7 +52,7 @@
             <td>{{getPosition(@index)}}</td>
             <td>{{ cupResult.ManagerName }}</td>
             {{#each season in getSeasons}}
-            <td>{{{getLeaguePosition season cupResult.SeasonStandings}}}</td>
+            <td>{{{getCupPosition season cupResult.SeasonStandings}}}</td>
             {{/each}}
           </tr>
           {{/each}}
