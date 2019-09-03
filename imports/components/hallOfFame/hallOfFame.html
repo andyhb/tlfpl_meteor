@@ -41,7 +41,9 @@
           <tr>
             <th scope="col">Pos</th>
             <th scope="col">Manager</th>
-            <th scope="col"></th>
+            {{#each season in getSeasons}}
+            <th scope="col">{{ season }}</th>
+            {{/each}}
           </tr>
         </thead>
         <tbody>
@@ -49,15 +51,9 @@
           <tr>
             <td>{{getPosition(@index)}}</td>
             <td>{{ cupResult.ManagerName }}</td>
-            <td>
-              {{#each getTrophies cupResult.CupWinner}}
-              <span class="fa fa-trophy winner"></span>
-              {{/each}}
-
-              {{#each getTrophies cupResult.CupRunnerUp}}
-              <span class="fa fa-trophy runnerUp"></span>
-              {{/each}}
-            </td>
+            {{#each season in getSeasons}}
+            <td>{{{getLeaguePosition season cupResult.SeasonStandings}}}</td>
+            {{/each}}
           </tr>
           {{/each}}
         </tbody>
