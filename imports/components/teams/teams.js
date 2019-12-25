@@ -215,6 +215,18 @@ Template.team.helpers({
     if (playersSelected.get().length !== 11) {
       return "disabled";
     }
+
+    if (formation[1] !== 1) {
+      return "disabled";
+    }
+
+    if (formation[2] < 3) {
+      return "disabled";
+    }
+
+    if (formation[4] < 1) {
+      return "disabled";
+    }
   },
   lineupSet() {
     return lineupSet.get();
