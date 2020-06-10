@@ -14,7 +14,7 @@ Template.home.onCreated(function bodyOnCreated() {
   self.subscribe("table");
 });
 
-Template.home.onDestroyed(function() {
+Template.home.onDestroyed(function () {
   gameweekState.set();
 });
 
@@ -30,10 +30,10 @@ Template.home.helpers({
         _id:
           (gameweek ? gameweek : globalGameweek === 0 ? 1 : globalGameweek) +
           "/" +
-          g.SeasonId
+          g.SeasonId,
       });
     }
-  }
+  },
 });
 
 Template.table.helpers({
@@ -54,8 +54,20 @@ Template.table.helpers({
     }
 
     return true;
-  }
+  },
 });
+
+const lastPreCovidGameweek = 29;
+const firstPostCovidGameweek = 38;
+
+const isCovidGameweek = function (gw) {
+  const covidGameweeks = [30, 31, 32, 33, 34, 35, 36, 37, 38];
+  if (covidGameweeks.indexOf(gw) > -1) {
+    return true;
+  }
+
+  return false;
+};
 
 Template.table.events({
   "click [nextGameweek]"() {
@@ -63,6 +75,10 @@ Template.table.events({
 
     if (gameweek > globalGameweek) {
       gameweek = globalGameweek;
+    }
+
+    if (isCovidGameweek(gameweek)) {
+      gameweek = firstPostCovidGameweek;
     }
 
     gameweekState.set(gameweek);
@@ -74,8 +90,12 @@ Template.table.events({
       gameweek = 1;
     }
 
+    if (isCovidGameweek(gameweek)) {
+      gameweek = lastPreCovidGameweek;
+    }
+
     gameweekState.set(gameweek);
-  }
+  },
 });
 
 Template.tableEntry.helpers({
@@ -114,5 +134,5 @@ Template.tableEntry.helpers({
     }
 
     return "";
-  }
+  },
 });

@@ -27,7 +27,7 @@ Template.team.onCreated(function bodyOnCreated() {
     1: 0,
     2: 0,
     3: 0,
-    4: 0
+    4: 0,
   };
   playersSelected.set([]);
   lineupSet.set(false);
@@ -45,7 +45,7 @@ Template.team.onCreated(function bodyOnCreated() {
           "/" +
           g.SeasonId +
           "/" +
-          FlowRouter.getParam("teamId")
+          FlowRouter.getParam("teamId"),
       });
 
       if (lineupForTeam) {
@@ -66,7 +66,7 @@ Template.team.onCreated(function bodyOnCreated() {
   });
 });
 
-Template.team.onDestroyed(function() {
+Template.team.onDestroyed(function () {
   formation = {};
   playersSelected.set();
 });
@@ -76,15 +76,15 @@ Template.admin.onCreated(function bodyOnCreated() {
   Meteor.subscribe("users");
 });
 
-const getTeams = function() {
+const getTeams = function () {
   return Teams.find(
     {
-      SeasonId: "3Pu8Cj8yLQxguchZP"
+      SeasonId: "3Pu8Cj8yLQxguchZP",
     },
     {
       sort: {
-        DraftOrder: 1
-      }
+        DraftOrder: 1,
+      },
     }
   );
 };
@@ -95,7 +95,7 @@ Template.admin.helpers({
   },
   managers() {
     return Meteor.users.find();
-  }
+  },
 });
 
 Template.admin.events({
@@ -120,31 +120,31 @@ Template.admin.events({
         ManagerName,
         SeasonId,
         SeasonName,
-        DraftOrder
+        DraftOrder,
       });
     }
 
     target.name.value = "";
     target.draftOrder.value = "";
-  }
+  },
 });
 
 Template.teamEntry.events({
   "click .delete"() {
     Meteor.call("teams.remove", this._id);
-  }
+  },
 });
 
 Template.team.helpers({
   team() {
     if (this.compare) {
       return Teams.findOne({
-        _id: FlowRouter.getParam("teamToCompareId")
+        _id: FlowRouter.getParam("teamToCompareId"),
       });
     }
 
     return Teams.findOne({
-      _id: FlowRouter.getParam("teamId")
+      _id: FlowRouter.getParam("teamId"),
     });
   },
   getPlayers(current) {
@@ -154,11 +154,11 @@ Template.team.helpers({
       this.Players.sort(sortPlayers);
 
       if (current) {
-        players = this.Players.filter(function(player) {
+        players = this.Players.filter(function (player) {
           return player.Current;
         });
       } else {
-        players = this.Players.filter(function(player) {
+        players = this.Players.filter(function (player) {
           return !player.Current;
         });
       }
@@ -182,7 +182,7 @@ Template.team.helpers({
     }
 
     const nextGameweek = getGameweek(true);
-    if (nextGameweek > 38) {
+    if (nextGameweek > 47) {
       return false;
     }
 
@@ -242,7 +242,7 @@ Template.team.helpers({
     const currentUser = Meteor.user();
     const team = Teams.findOne({
       SeasonId: this.SeasonId,
-      ManagerId: currentUser._id
+      ManagerId: currentUser._id,
     });
 
     if (team) {
@@ -269,10 +269,10 @@ Template.team.helpers({
 
     // otherwise true
     return true;
-  }
+  },
 });
 
-const getGameweek = function(next) {
+const getGameweek = function (next) {
   let g = Globals.findOne();
 
   if (g) {
@@ -280,7 +280,7 @@ const getGameweek = function(next) {
   }
 };
 
-const isAdmin = function(currentUser) {
+const isAdmin = function (currentUser) {
   return currentUser.role && currentUser.role === "admin";
 };
 
@@ -322,15 +322,15 @@ Template.team.events({
         TeamId: this._id,
         Players: selected,
         Formation: getFormation(),
-        DateSet: new Date()
+        DateSet: new Date(),
       };
 
       Meteor.call("lineups.update", lineup);
     }
-  }
+  },
 });
 
-const sortPlayers = function(a, b) {
+const sortPlayers = function (a, b) {
   let aPosition = a.Player.Position;
   let bPosition = b.Player.Position;
 
@@ -343,7 +343,7 @@ const sortPlayers = function(a, b) {
   if (aTotalPoints < bTotalPoints) return 1;
 };
 
-const getFormation = function() {
+const getFormation = function () {
   if (playersSelected.get().length > 0) {
     return formation[2] + "-" + formation[3] + "-" + formation[4];
   } else {
@@ -351,7 +351,7 @@ const getFormation = function() {
   }
 };
 
-const updateFormation = function(add, position) {
+const updateFormation = function (add, position) {
   if (add) {
     formation[position]++;
   } else {
@@ -359,7 +359,7 @@ const updateFormation = function(add, position) {
   }
 };
 
-const allowedToSelectPlayer = function(selected, position) {
+const allowedToSelectPlayer = function (selected, position) {
   if (selected.length === 11) {
     return false;
   }
