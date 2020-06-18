@@ -58,7 +58,7 @@ Template.table.helpers({
 });
 
 const lastPreCovidGameweek = 29;
-const firstPostCovidGameweek = 38;
+const firstPostCovidGameweek = 39;
 
 const isCovidGameweek = function (gw) {
   const covidGameweeks = [30, 31, 32, 33, 34, 35, 36, 37, 38];
