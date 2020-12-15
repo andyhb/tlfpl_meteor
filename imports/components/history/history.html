@@ -1,0 +1,27 @@
+<template name="history">
+  {{#if Template.subscriptionsReady}}
+
+  <div class="row">
+    <div id="Gameweeks">
+      <div class="col-sm-12">
+        {{> gameweekEntry data=getGameweek currentGameweekOnly=false}}
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div id="Table">
+      <div class="col-sm-12">
+        {{> table data=getData currentGameweekOnly=false}}
+      </div>
+    </div>
+  </div>
+
+  {{else}}
+  <div class="row">
+    <div id="Spinner">
+      <div class="col-sm-12">{{> spinner}}</div>
+    </div>
+  </div>
+  {{/if}}
+</template>
