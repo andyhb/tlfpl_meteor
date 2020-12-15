@@ -1,38 +1,33 @@
 <template name="home">
-    {{#if Template.subscriptionsReady}}
-    {{#if cupWeek}}
-    <div class="row">
-        <div id="CupFixtures">
-            <div class="col-sm-12">
-                {{> cupFixtures}}
-            </div>
-        </div>
+  {{#if Template.subscriptionsReady}} {{#if cupWeek}}
+  <div class="row">
+    <div id="CupFixtures">
+      <div class="col-sm-12">{{> cupFixtures}}</div>
     </div>
-    {{/if}}
+  </div>
+  {{/if}}
 
-    <div class="row">
-        <div id="Gameweeks">
-            <div class="col-sm-12">
-                {{> gameweekEntry data=getGameweek}}
-            </div>
-        </div>
+  <div class="row">
+    <div id="Gameweeks">
+      <div class="col-sm-12">
+        {{> gameweekEntry data=getGameweek currentGameweekOnly=true}}
+      </div>
     </div>
+  </div>
 
-    <div class="row">  
-        <div id="Table">
-            <div class="col-sm-12">
-                {{> table data=getData}}
-            </div>
-        </div>
+  <div class="row">
+    <div id="Table">
+      <div class="col-sm-12">
+        {{> table data=getData currentGameweekOnly=true}}
+      </div>
     </div>
+  </div>
 
-    {{else}}
-    <div class="row">  
-        <div id="Spinner">
-            <div class="col-sm-12">
-                {{> spinner}}
-            </div>
-        </div>
+  {{else}}
+  <div class="row">
+    <div id="Spinner">
+      <div class="col-sm-12">{{> spinner}}</div>
     </div>
-    {{/if}}
+  </div>
+  {{/if}}
 </template>

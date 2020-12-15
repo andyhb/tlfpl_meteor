@@ -41,7 +41,7 @@
     {{#each seasons}}
     {{> season}}
     {{/each}}
-  </ul>
+  </ul-->
 
   <header>
     <h1>Teams</h1>
@@ -59,10 +59,8 @@
   </header>
 
   <ul>
-    {{#each teams}}
-    {{> teamEntry}}
-    {{/each}}
-  </ul>-->
+    {{#each teams}} {{> teamEntry}} {{/each}}
+  </ul>
 
   <header>
     <h1>Add player to team</h1>
@@ -89,9 +87,7 @@
       </tr>
     </thead>
     <tbody>
-      {{#each players}}
-      {{> playerEntry data=playerContext}}
-      {{/each}}
+      {{#each players}} {{> playerEntry data=playerContext}} {{/each}}
     </tbody>
   </table>
   {{/if}}

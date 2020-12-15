@@ -11,4 +11,11 @@ if (Meteor.isServer) {
       return Gameweeks.find({ SeasonId: g.SeasonId });
     }
   });
+
+  Meteor.publish("currentGameweek", function currentGameweekPublication() {
+    let g = Globals.findOne();
+    if (g) {
+      return Gameweeks.find({ SeasonId: g.SeasonId, Gameweek: g.Gameweek });
+    }
+  });
 }

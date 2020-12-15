@@ -4,20 +4,40 @@ import { ReactiveVar } from "meteor/reactive-var";
 
 import { Gameweeks } from "../../api/gameweek.js";
 import "./gameweekEntry.html";
+import "../history/history.html";
 
 const gameweekState = new ReactiveVar();
 let globalGameweek = 1;
 
 Template.home.onCreated(function bodyOnCreated() {
   let self = this;
+  self.subscribe("currentGameweek");
+});
+
+Template.home.onDestroyed(function () {
+  gameweekState.set();
+});
+
+Template.history.onCreated(function bodyOnCreated() {
+  let self = this;
   self.subscribe("gameweek");
 });
 
-Template.home.onDestroyed(function() {
+Template.history.onDestroyed(function () {
   gameweekState.set();
 });
 
 Template.home.helpers({
+  getGameweek() {
+    var g = Globals.findOne();
+
+    if (g) {
+      return Gameweeks.find();
+    }
+  },
+});
+
+Template.history.helpers({
   getGameweek() {
     var g = Globals.findOne();
 
@@ -30,21 +50,25 @@ Template.home.helpers({
       return Gameweeks.find(
         {
           SeasonId: g.SeasonId,
-          Gameweek: gameweek ? gameweek : modifiedGameweek
+          Gameweek: gameweek ? gameweek : modifiedGameweek,
         },
         {
           sort: {
             TotalPoints: -1,
-            DateLineupSet: 1
-          }
+            DateLineupSet: 1,
+          },
         }
       );
     }
-  }
+  },
 });
 
 Template.gameweekEntry.helpers({
   showNextGameweekButton() {
+    if (this.currentGameweekOnly) {
+      return false;
+    }
+
     var gameweek = getWeek(this.data) + 1;
 
     if (gameweek > globalGameweek + 1 || gameweek > 38) {
@@ -54,6 +78,10 @@ Template.gameweekEntry.helpers({
     return true;
   },
   showPreviousGameweekButton() {
+    if (this.currentGameweekOnly) {
+      return false;
+    }
+
     var gameweek = getWeek(this.data) - 1;
 
     if (gameweek < 1) {
@@ -64,7 +92,7 @@ Template.gameweekEntry.helpers({
   },
   getSelectedPlayers(gameweekPlayers) {
     gameweekPlayers.sort(sortPlayers);
-    return gameweekPlayers.filter(function(player) {
+    return gameweekPlayers.filter(function (player) {
       return player.Selected;
     });
   },
@@ -97,14 +125,14 @@ Template.gameweekEntry.helpers({
     if (date) {
       return formatDate(date);
     }
-  }
+  },
 });
 
-const isLineupSet = function(formation) {
+const isLineupSet = function (formation) {
   return !!formation;
 };
 
-const sortPlayers = function(a, b) {
+const sortPlayers = function (a, b) {
   let aPosition = a.Player.Position;
   let bPosition = b.Player.Position;
 
@@ -122,7 +150,7 @@ const sortPlayers = function(a, b) {
   if (aTotalPoints < bTotalPoints) return 1;
 };
 
-const getWeek = function(data) {
+const getWeek = function (data) {
   if (data) {
     var firstGameweek = data.fetch()[0];
     if (firstGameweek) {
@@ -155,5 +183,5 @@ Template.gameweekEntry.events({
     }
 
     gameweekState.set(gameweek);
-  }
+  },
 });

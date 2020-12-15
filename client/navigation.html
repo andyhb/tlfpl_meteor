@@ -25,13 +25,7 @@
 
       <div class="navbar-header navbar-right pull-right">
         <ul class="nav navbar-nav navbar-right pull-left">
-          <li>
-            {{#if currentUser}}
-            {{> logout}}
-            {{else}}
-            {{> login}}
-            {{/if}}
-          </li>
+          <li>{{#if currentUser}} {{> logout}} {{else}} {{> login}} {{/if}}</li>
         </ul>
         <button
           type="button"
@@ -52,19 +46,16 @@
           <li><a href="/cup/fixtures">Cup</a></li>
           <li><a href="/players">Players</a></li>
           <li><a href="/fines">Fines</a></li>
+          <li><a href="/history">History</a></li>
           <li><a href="/halloffame">Hall of Fame</a></li>
           <li><a href="/events">Events</a></li>
 
           {{#if isEventAdmin}}
           <li><a href="/events/admin">Event Admin</a></li>
-          {{/if}}
-
-          {{#if isAdmin}}
+          {{/if}} {{#if isAdmin}}
           <li><a href="/cup/admin">Cup Admin</a></li>
           <li><a href="/admin">Admin</a></li>
-          {{/if}}
-
-          {{#if currentUser}}
+          {{/if}} {{#if currentUser}}
           <li><a href="/profile">Profile</a></li>
           {{/if}}
         </ul>

@@ -3,7 +3,6 @@ import "../imports/components/gameweeks/gameweeks.js";
 import "../imports/components/teams/teams.js";
 import "../imports/components/seasons/seasons.js";
 import "../imports/components/table/table.js";
-// import '../imports/components/todosList/todosList.js';
 import "../imports/components/users/users.js";
 import "../imports/components/players/players.js";
 import "../imports/components/notifications/notification.js";
@@ -49,7 +48,7 @@ Template.navigation.onCreated(function bodyOnCreated() {
           Lineups.findOne({
             TeamId: team._id,
             Gameweek: g.Gameweek + 1,
-            SeasonId: g.SeasonId
+            SeasonId: g.SeasonId,
           })
         );
       }
@@ -59,7 +58,7 @@ Template.navigation.onCreated(function bodyOnCreated() {
   });
 });
 
-Template.navigation.onDestroyed(function() {
+Template.navigation.onDestroyed(function () {
   currentUserTeam.set();
   lineupSet.set(false);
 });
@@ -98,13 +97,13 @@ Template.navigation.helpers({
     if (currentUserTeam.get()) {
       return currentUserTeam.get()._id;
     }
-  }
+  },
 });
 
-// Meteor.connection._stream.on("message", message => {
+// Meteor.connection._stream.on("message", (message) => {
 //   const data = JSON.parse(message);
 
-//   if (data.collection === "fines_team") {
+//   if (data.collection === "table") {
 //     console.log(data);
 //   }
 // });

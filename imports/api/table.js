@@ -11,4 +11,11 @@ if (Meteor.isServer) {
       return Table.find({ SeasonId: g.SeasonId });
     }
   });
+
+  Meteor.publish("currentTable", function currentTablePublication() {
+    let g = Globals.findOne();
+    if (g) {
+      return Table.find({ SeasonId: g.SeasonId, Gameweek: g.Gameweek });
+    }
+  });
 }
