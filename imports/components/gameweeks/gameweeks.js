@@ -32,7 +32,10 @@ Template.home.helpers({
     var g = Globals.findOne();
 
     if (g) {
-      return Gameweeks.find();
+      return Gameweeks.find(
+        {},
+        { sort: { TotalPoints: -1, DateLineupSet: 1 } }
+      );
     }
   },
 });
