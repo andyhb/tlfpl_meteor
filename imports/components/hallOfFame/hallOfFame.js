@@ -35,11 +35,11 @@ Template.hallOfFame.helpers({
 
     const seasons = [];
     if (hallOfFame) {
-      hallOfFame.LeagueResults[0].SeasonStandings.forEach(ss => {
+      hallOfFame.CupResults[0].SeasonStandings.forEach(ss => {
         seasons.push(ss.SeasonName);
       });
     }
-    return seasons;
+    return seasons.reverse();
   },
   getLeaguePosition(season, leagueResults) {
     if (leagueResults) {
@@ -111,19 +111,14 @@ const sortLeagueResults = function(a, b) {
 };
 
 const sortCupResults = function(a, b) {
-  let aWins = a.CupWinner;
-  let bWins = b.CupWinner;
-
-  let aRunnerUp = a.CupRunnerUp;
-  let bRunnerUp = b.CupRunnerUp;
+  let aCupSorting = a.CupSorting;
+  let bCupSorting = b.CupSorting;
 
   let aName = a.ManagerName;
   let bName = b.ManagerName;
 
-  if (aWins > bWins) return -1;
-  if (aWins < bWins) return 1;
-  if (aRunnerUp > bRunnerUp) return -1;
-  if (aRunnerUp < bRunnerUp) return 1;
+  if (aCupSorting > bCupSorting) return -1;
+  if (aCupSorting < bCupSorting) return 1;
   if (aName > bName) return 1;
   if (aName < bName) return -1;
 };

@@ -79,7 +79,7 @@ Template.admin.onCreated(function bodyOnCreated() {
 const getTeams = function () {
   return Teams.find(
     {
-      SeasonId: "j45XiqvzCWv2ZJPvx",
+      SeasonId: "5aJvcaRacSf9rtjN",
     },
     {
       sort: {
