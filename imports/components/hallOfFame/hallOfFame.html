@@ -10,7 +10,7 @@
             <th scope="col">Manager</th>
             <th scope="col">Total Pts</th>
             <th scope="col">Hall of Fame</th>
-            {{#each season in getSeasons}}
+            {{#each season in getLeagueSeasons}}
             <th scope="col">{{ season }}</th>
             {{/each}}
           </tr>
@@ -22,7 +22,7 @@
             <td>{{ leagueResult.ManagerName }}</td>
             <td>{{ leagueResult.TotalPoints }}</td>
             <td>{{ leagueResult.HallOfFamePoints }}</td>
-            {{#each season in getSeasons}}
+            {{#each season in getLeagueSeasons}}
             <td>{{{getLeaguePosition season leagueResult.SeasonStandings}}}</td>
             {{/each}}
           </tr>
@@ -41,7 +41,7 @@
           <tr>
             <th scope="col">Pos</th>
             <th scope="col">Manager</th>
-            {{#each season in getSeasons}}
+            {{#each season in getCupSeasons}}
             <th scope="col">{{ season }}</th>
             {{/each}}
           </tr>
@@ -51,7 +51,7 @@
           <tr>
             <td>{{getPosition(@index)}}</td>
             <td>{{ cupResult.ManagerName }}</td>
-            {{#each season in getSeasons}}
+            {{#each season in getCupSeasons}}
             <td>{{{getCupPosition season cupResult.SeasonStandings}}}</td>
             {{/each}}
           </tr>

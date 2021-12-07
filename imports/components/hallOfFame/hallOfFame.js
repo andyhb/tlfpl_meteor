@@ -30,7 +30,18 @@ Template.hallOfFame.helpers({
   getTrophies(count) {
     return Array.from(Array(count));
   },
-  getSeasons() {
+  getLeagueSeasons() {
+    let hallOfFame = HallOfFame.findOne();
+
+    const seasons = [];
+    if (hallOfFame) {
+      hallOfFame.LeagueResults[0].SeasonStandings.forEach(ss => {
+        seasons.push(ss.SeasonName);
+      });
+    }
+    return seasons.reverse();
+  },
+  getCupSeasons() {
     let hallOfFame = HallOfFame.findOne();
 
     const seasons = [];
