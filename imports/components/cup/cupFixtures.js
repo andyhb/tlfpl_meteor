@@ -24,6 +24,7 @@ Template.home.helpers({
     if (g) {
       const groupFixtures = CupGroupFixtures.find({
         SeasonId: g.SeasonId,
+        SeasonOrder: g.ActiveCup,
         $or: [
           { "Fixtures.Gameweek": g.Gameweek },
           { "Fixtures.Gameweek": g.Gameweek + 1 }
@@ -32,6 +33,7 @@ Template.home.helpers({
 
       const koFixtures = CupKnockoutFixtures.find({
         SeasonId: g.SeasonId,
+        SeasonOrder: g.ActiveCup,
         $or: [
           { "Fixtures.Week": g.Gameweek },
           { "Fixtures.Week": g.Gameweek + 1 }
@@ -54,6 +56,7 @@ Template.cupFixtures.helpers({
     if (g) {
       let cupGroupFixtures = CupGroupFixtures.find({
         SeasonId: g.SeasonId,
+        SeasonOrder: g.ActiveCup,
         $or: [
           { "Fixtures.Gameweek": g.Gameweek },
           { "Fixtures.Gameweek": g.Gameweek + 1 }
@@ -80,6 +83,7 @@ Template.cupFixtures.helpers({
       } else {
         cupGroupFixtures = CupKnockoutFixtures.find({
           SeasonId: g.SeasonId,
+          SeasonOrder: g.ActiveCup,
           $or: [
             { "Fixtures.Week": g.Gameweek },
             { "Fixtures.Week": g.Gameweek + 1 }

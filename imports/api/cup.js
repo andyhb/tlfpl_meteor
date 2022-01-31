@@ -38,6 +38,7 @@ Meteor.methods({
 
     const existingGroup = CupGroups.findOne({
       SeasonId: cupGroup.SeasonId,
+      SeasonOrder: cupGroup.SeasonOrder,
       Name: cupGroup.Name
     });
 

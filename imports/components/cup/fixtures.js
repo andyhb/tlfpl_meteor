@@ -22,7 +22,7 @@ Template.fixtures.helpers({
     var g = Globals.findOne();
 
     if (g) {
-      return CupGroupFixtures.find({ SeasonId: g.SeasonId });
+      return CupGroupFixtures.find({ SeasonId: g.SeasonId, SeasonOrder: g.ActiveCup });
     }
   },
   cupKnockoutFixtures() {
@@ -30,7 +30,7 @@ Template.fixtures.helpers({
 
     if (g) {
       return CupKnockoutFixtures.find(
-        { SeasonId: g.SeasonId },
+        { SeasonId: g.SeasonId, SeasonOrder: g.ActiveCup },
         {
           sort: {
             RoundOrder: -1,
@@ -51,6 +51,7 @@ Template.fixtures.helpers({
       globalGameweek = g.Gameweek;
 
       selector.SeasonId = g.SeasonId;
+      selector.SeasonOrder = g.ActiveCup;
       selector.CupGroupId = id;
 
       var tables = CupGroupTables.find(selector).fetch();
